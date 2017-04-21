@@ -47,6 +47,9 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
         }
 
+        Intent maIntent = new Intent(Registration.this, MainActivity.class);
+        Registration.this.startActivity((maIntent));
+
 
     }
 }

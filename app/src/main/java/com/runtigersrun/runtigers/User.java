@@ -14,7 +14,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class User {
 
 
-
+    public static final String TABLE_NAME_USERS = "Users";
     public static final String COLUMN_NAME_USERID = "userID";
     public static final String COLUMN_NAME_FIRSTN = "FirstName";
     public static final String COLUMN_NAME_LASTN = "LastName";

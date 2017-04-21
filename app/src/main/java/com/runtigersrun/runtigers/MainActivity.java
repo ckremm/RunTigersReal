@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String DATABASE_NAME = "RTR";
     public static final String TABLE_NAME_USERS = "User";
     public static SQLiteDatabase myDB;
     private EditText loginU;
@@ -27,41 +28,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDB = openOrCreateDatabase(TABLE_NAME_USERS, Context.MODE_PRIVATE, null);
+        myDB = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+
+    }
+
+    public void toInfo(View view){
+        AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            infoBuilder.setView(R.layout.activity_info);
+        }
+
+        infoBuilder.create();
+        infoBuilder.show();
+    }
+
+    public void toRegister(View view){
+        Intent registerIntent = new Intent(MainActivity.this, Registration.class);
+        MainActivity.this.startActivity((registerIntent));
+    }
+
+    public void toTracks(View view) {
 
         final EditText loginU = (EditText) findViewById(R.id.loginUser);
         final EditText loginP = (EditText) findViewById(R.id.loginPass);
         Button loginB = (Button) findViewById(R.id.loginButton);
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
-
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(MainActivity.this, Registration.class);
-                MainActivity.this.startActivity((registerIntent));
-            }
-        });
-
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    infoBuilder.setView(R.layout.activity_info);
-                }
-
-                infoBuilder.create();
-                infoBuilder.show();
-            }
-        });
-
-
-    }
-
-    public void toTracks(View view) {
 
         Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
                 + " WHERE Username = " + loginU.getText().toString(), null);
