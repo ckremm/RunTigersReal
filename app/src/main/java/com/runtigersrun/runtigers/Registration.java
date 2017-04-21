@@ -10,12 +10,24 @@ import android.widget.Toast;
 
 public class Registration extends AppCompatActivity {
 
+    EditText first;
+    EditText last;
+    EditText username;
+    EditText password;
+    EditText email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         Button register = (Button) findViewById(R.id.regButton);
+
+        EditText first = (EditText)findViewById(R.id.regEditFName);
+        EditText last = (EditText)findViewById(R.id.regEditLName);
+        EditText username = (EditText)findViewById(R.id.regEditUser);
+        EditText password = (EditText)findViewById(R.id.regEditPass);
+        EditText email = (EditText)findViewById(R.id.regEditEmail);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,11 +38,6 @@ public class Registration extends AppCompatActivity {
 
     }
 
-    EditText first = (EditText)findViewById(R.id.regEditFName);
-    EditText last = (EditText)findViewById(R.id.regEditLName);
-    EditText username = (EditText)findViewById(R.id.regEditUser);
-    EditText password = (EditText)findViewById(R.id.regEditPass);
-    EditText email = (EditText)findViewById(R.id.regEditEmail);
 
     public void clickRegister(View view){
 
