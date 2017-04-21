@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.runtigersrun.runtigers.Splash">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:srcCompat="@drawable/splash"
+        android:id="@+id/splash"
+        android:layout_alignParentTop="true" />
+</RelativeLayout>
