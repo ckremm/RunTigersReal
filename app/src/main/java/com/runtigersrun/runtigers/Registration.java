@@ -20,20 +20,16 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+    }
 
-        Button register = (Button) findViewById(R.id.regButton);
+
+    public void clickRegister(View view){
 
         EditText first = (EditText)findViewById(R.id.regEditFName);
         EditText last = (EditText)findViewById(R.id.regEditLName);
         EditText username = (EditText)findViewById(R.id.regEditUser);
         EditText password = (EditText)findViewById(R.id.regEditPass);
         EditText email = (EditText)findViewById(R.id.regEditEmail);
-
-    }
-
-
-    public void clickRegister(View view){
-
 
         String fi = first.getText().toString();
         String la = last.getText().toString();
