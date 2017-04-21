@@ -29,13 +29,6 @@ public class Registration extends AppCompatActivity {
         EditText password = (EditText)findViewById(R.id.regEditPass);
         EditText email = (EditText)findViewById(R.id.regEditEmail);
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
     }
 
 
@@ -47,6 +40,8 @@ public class Registration extends AppCompatActivity {
         String un = username.getText().toString();
         String pass = password.getText().toString();
         String em = email.getText().toString();
+
+        Toast.makeText(this,"Hello", Toast.LENGTH_LONG).show();
 
         if(fi.isEmpty() || la.isEmpty() || un.isEmpty() || pass.isEmpty() || em.isEmpty()){
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_LONG).show();
