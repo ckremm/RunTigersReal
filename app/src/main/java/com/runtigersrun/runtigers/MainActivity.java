@@ -1,7 +1,9 @@
 package com.runtigersrun.runtigers;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +15,15 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //69
+    public static final String TABLE_NAME_USERS = "User";
+    public static SQLiteDatabase myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myDB = openOrCreateDatabase(TABLE_NAME_USERS, Context.MODE_PRIVATE, null);
 
         EditText loginU = (EditText) findViewById(R.id.loginUser);
         EditText loginP = (EditText) findViewById(R.id.loginPass);
