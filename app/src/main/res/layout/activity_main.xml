@@ -40,7 +40,8 @@
         android:layout_below="@+id/loginPass"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:id="@+id/loginButton" />
+        android:id="@+id/loginButton"
+        android:onClick="toTracks" />
 
     <TextView
         android:text="Register Here"

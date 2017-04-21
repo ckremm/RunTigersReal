@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TABLE_NAME_USERS = "User";
     public static SQLiteDatabase myDB;
+    private EditText loginU;
+    private EditText loginP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +35,6 @@ public class MainActivity extends AppCompatActivity {
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
 
-        loginB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
-+ " WHERE Username = " + loginU.getText().toString(), null);
-                if(loginP.getText().toString() == c.getString(c.getColumnIndex("Password"))){
-                    Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
-                    MainActivity.this.startActivity(loginIntent);
-                }else{
-                    Toast.makeText(MainActivity.this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +57,20 @@ public class MainActivity extends AppCompatActivity {
                 infoBuilder.show();
             }
         });
+
+
+    }
+
+    public void toTracks(View view) {
+
+        Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
+                + " WHERE Username = " + loginU.getText().toString(), null);
+        if(loginP.getText().toString() == c.getString(c.getColumnIndex("Password"))){
+            Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
+            MainActivity.this.startActivity(loginIntent);
+        }else{
+            Toast.makeText(MainActivity.this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
+        }
 
 
     }
