@@ -3,6 +3,7 @@ package com.runtigersrun.runtigers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         myDB = openOrCreateDatabase(TABLE_NAME_USERS, Context.MODE_PRIVATE, null);
 
-        EditText loginU = (EditText) findViewById(R.id.loginUser);
-        EditText loginP = (EditText) findViewById(R.id.loginPass);
+        final EditText loginU = (EditText) findViewById(R.id.loginUser);
+        final EditText loginP = (EditText) findViewById(R.id.loginPass);
         Button loginB = (Button) findViewById(R.id.loginButton);
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
@@ -34,8 +36,17 @@ public class MainActivity extends AppCompatActivity {
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
-                MainActivity.this.startActivity(loginIntent);
+
+                Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
++ " WHERE Username = " + loginU.getText().toString(), null);
+                if(loginP.getText().toString() == c.getString(c.getColumnIndex("Password"))){
+                    Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
+                    MainActivity.this.startActivity(loginIntent);
+                }else{
+                    Toast.makeText(MainActivity.this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
+                }
+
+
             }
         });
 
