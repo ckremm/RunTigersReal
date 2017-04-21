@@ -23,14 +23,17 @@ public class Registration extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
     }
 
+    EditText first = (EditText)findViewById(R.id.regEditFName);
+    EditText last = (EditText)findViewById(R.id.regEditLName);
+    EditText username = (EditText)findViewById(R.id.regEditUser);
+    EditText password = (EditText)findViewById(R.id.regEditPass);
+    EditText email = (EditText)findViewById(R.id.regEditEmail);
+
     public void clickRegister(View view){
-        EditText first = (EditText)findViewById(R.id.regEditFName);
-        EditText last = (EditText)findViewById(R.id.regEditLName);
-        EditText username = (EditText)findViewById(R.id.regEditUser);
-        EditText password = (EditText)findViewById(R.id.regEditPass);
-        EditText email = (EditText)findViewById(R.id.regEditEmail);
+
 
         String fi = first.getText().toString();
         String la = last.getText().toString();

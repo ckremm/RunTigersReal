@@ -42,7 +42,7 @@ public class User {
         Password = pass;
         Email = mail;
 
-
+        updateInternal();
     }
 
     private void updateInternal(){
