@@ -50,14 +50,14 @@ public class User {
 
             //
             MainActivity.myDB.execSQL(
-                    "CREATE TABLE IF NOT EXISTS " + MainActivity.TABLE_NAME_USERS + " (" +
+                    "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USERS + " (" +
                             COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +
-                            COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
-                            COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
-                            COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
-                            COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
-                            COLUMN_NAME_EMAIL + TEXT_TYPE  +
-                            " )");
+                            SPACE + COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
+                            SPACE + COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
+                            SPACE + COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
+                            SPACE + COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
+                            SPACE + COLUMN_NAME_EMAIL + TEXT_TYPE  +
+                            ")");
 
             MainActivity.myDB.execSQL("INSERT INTO " + MainActivity.TABLE_NAME_USERS + SPACE +
                     "VALUES (NULL, '" + FirstName + "', '" + LastName + "', '" + Username + "', '" + Password + "', '" + Email + "')");
