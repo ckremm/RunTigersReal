@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity {
             Registration.this.startActivity((maIntent));
 
         }
-
+//
 
     }
 }

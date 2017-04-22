@@ -48,6 +48,7 @@ public class User {
     private void updateInternal(){
         try{
 
+            //
             MainActivity.myDB.execSQL(
                     "CREATE TABLE IF NOT EXISTS " + MainActivity.TABLE_NAME_USERS + " (" +
                             COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +

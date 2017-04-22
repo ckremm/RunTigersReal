@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 public class UserInfo extends AppCompatActivity {
 
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
