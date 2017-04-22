@@ -58,7 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
                 + " WHERE Username = " + loginU.getText().toString(), null);
-        if(loginP.getText().toString() == c.getString(c.getColumnIndex("Password"))){
+
+        int usernameindex = c.getColumnIndex("Password");
+        c.moveToFirst();
+        String password = "";
+        while (c!=null){
+            password =  c.getString(usernameindex);
+            c.moveToNext();
+        }
+
+        if(loginP.getText().toString() == password){
             Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
             MainActivity.this.startActivity(loginIntent);
         }else{
