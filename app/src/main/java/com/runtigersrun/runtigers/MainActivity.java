@@ -15,7 +15,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+
+    public static final String COLUMN_NAME_USERID = "userID";
+    public static final String COLUMN_NAME_FIRSTN = "FirstName";
+    public static final String COLUMN_NAME_LASTN = "LastName";
+    public static final String COLUMN_NAME_USERN = "Username";
+    public static final String COLUMN_NAME_PASS = "Password";
+    public static final String COLUMN_NAME_EMAIL = "Email";
+    private static final String TEXT_TYPE = " VARCHAR";
+    private static final String COMMA_SEP = ",";
+    private static final String SPACE = " ";
 
     public static final String DATABASE_NAME = "RTR";
     public static final String TABLE_NAME_USERS = "User";
@@ -28,7 +41,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDB = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+        try{
+
+            myDB = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+            MainActivity.myDB.execSQL(
+                "CREATE TABLE IF NOT EXISTS " + MainActivity.TABLE_NAME_USERS + " (" +
+                        COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +
+                        COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
+                        COLUMN_NAME_EMAIL + TEXT_TYPE  +
+                        " )");
+            myDB.execSQL("DELETE FROM "+ TABLE_NAME_USERS);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -56,16 +85,14 @@ public class MainActivity extends AppCompatActivity {
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
 
-        Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
-                + " WHERE Username = " + loginU.getText().toString(), null);
 
-        int usernameindex = c.getColumnIndex("Password");
+        Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
+               + " WHERE TRIM(Username) = '" + loginU.getText().toString() + "'", null);
+
+
+        int passwordindex = c.getColumnIndex("Password");
         c.moveToFirst();
-        String password = "";
-        while (c!=null){
-            password =  c.getString(usernameindex);
-            c.moveToNext();
-        }
+        String password = c.getString(passwordindex);
 
         if(loginP.getText().toString() == password){
             Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
@@ -76,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 }
