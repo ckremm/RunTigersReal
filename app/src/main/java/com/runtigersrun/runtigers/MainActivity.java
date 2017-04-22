@@ -17,18 +17,17 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String DATABASE_NAME = "RTR";
-    public static final String TABLE_NAME_USERS = "User";
-    public static SQLiteDatabase myDB;
     private EditText loginU;
     private EditText loginP;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDB = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+
 
     }
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
 
-        Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
+        Cursor c = User.myDB.rawQuery("SELECT * FROM "+ User.TABLE_NAME_USERS
                 + " WHERE Username = " + loginU.getText().toString(), null);
 
         int usernameindex = c.getColumnIndex("Password");

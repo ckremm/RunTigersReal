@@ -14,6 +14,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class User {
 
 
+    public static final String DATABASE_NAME = "RTR";
+    public static SQLiteDatabase myDB;
     public static final String TABLE_NAME_USERS = "Users";
     public static final String COLUMN_NAME_USERID = "userID";
     public static final String COLUMN_NAME_FIRSTN = "FirstName";
@@ -24,9 +26,6 @@ public class User {
     private static final String TEXT_TYPE = " VARCHAR";
     private static final String COMMA_SEP = ",";
     private static final String SPACE = " ";
-
-
-
 
     private String FirstName;
     private String LastName;
@@ -45,11 +44,23 @@ public class User {
         updateInternal();
     }
 
+    private  void startup(){
+        myDB = SQLiteDatabase.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+        myDB.execSQL(
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USERS + " (" +
+                        COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +
+                        SPACE + COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
+                        SPACE + COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
+                        SPACE + COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
+                        SPACE + COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
+                        SPACE + COLUMN_NAME_EMAIL + TEXT_TYPE  +
+                        ")");
+    }
+
     private void updateInternal(){
         try{
 
-            //
-            MainActivity.myDB.execSQL(
+            myDB.execSQL(
                     "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USERS + " (" +
                             COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +
                             SPACE + COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
@@ -59,7 +70,7 @@ public class User {
                             SPACE + COLUMN_NAME_EMAIL + TEXT_TYPE  +
                             ")");
 
-            MainActivity.myDB.execSQL("INSERT INTO " + MainActivity.TABLE_NAME_USERS + SPACE +
+            myDB.execSQL("INSERT INTO " + TABLE_NAME_USERS + SPACE +
                     "VALUES (NULL, '" + FirstName + "', '" + LastName + "', '" + Username + "', '" + Password + "', '" + Email + "')");
         }
         catch (Exception e){
