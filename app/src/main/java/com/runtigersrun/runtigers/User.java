@@ -44,7 +44,7 @@ public class User {
         updateInternal();
     }
 
-    private  void startup(){
+    public void startup(){
         myDB = SQLiteDatabase.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
         myDB.execSQL(
                 "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USERS + " (" +

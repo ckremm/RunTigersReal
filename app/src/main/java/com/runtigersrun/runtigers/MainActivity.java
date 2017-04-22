@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText loginU;
     private EditText loginP;
-
+    User u;
 
 
     @Override
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public void toRegister(View view){
         Intent registerIntent = new Intent(MainActivity.this, Registration.class);
         MainActivity.this.startActivity((registerIntent));
+        u.startup();
     }
 
     public void toTracks(View view) {
