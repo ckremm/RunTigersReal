@@ -37,18 +37,17 @@ public class Registration extends AppCompatActivity {
         String pass = password.getText().toString();
         String em = email.getText().toString();
 
-        Toast.makeText(this,"Hello", Toast.LENGTH_LONG).show();
-
         if(fi.isEmpty() || la.isEmpty() || un.isEmpty() || pass.isEmpty() || em.isEmpty()){
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_LONG).show();
         }
         else{
             User u = new User(fi,la,un,pass,em);
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
-        }
 
-        Intent maIntent = new Intent(Registration.this, MainActivity.class);
-        Registration.this.startActivity((maIntent));
+            Intent maIntent = new Intent(Registration.this, MainActivity.class);
+            Registration.this.startActivity((maIntent));
+
+        }
 
 
     }

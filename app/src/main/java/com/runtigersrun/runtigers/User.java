@@ -55,7 +55,7 @@ public class User {
                             COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
                             COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
                             COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
-                            COLUMN_NAME_EMAIL + TEXT_TYPE + COMMA_SEP +
+                            COLUMN_NAME_EMAIL + TEXT_TYPE  +
                             " )");
 
             MainActivity.myDB.execSQL("INSERT INTO " + MainActivity.TABLE_NAME_USERS + SPACE +
