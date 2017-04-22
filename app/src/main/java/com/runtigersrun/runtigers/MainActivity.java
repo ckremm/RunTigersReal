@@ -15,6 +15,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +64,24 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        String str;
+        try {
+            // Create a URL for the desired page
+            URL url = new URL("https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytext.php");
+
+            // Read all the text returned by the server
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            while ((str = in.readLine()) != null) {
+                str = in.readLine().toString();
+                System.out.println(str);
+                // str is one line of text; readLine() strips the newline character(s)
+            }
+            in.close();
+        } catch (MalformedURLException e) {
+        } catch (IOException e) {
+        }
+
+
     }
 
     public void toInfo(View view){
@@ -87,11 +110,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
-               + " WHERE TRIM(Username) = '" + loginU.getText().toString() + "'", null);
+               + " WHERE TRIM(Username) = ?" , new String[] {loginU.getText().toString()});
 
 
-        int passwordindex = c.getColumnIndex("Password");
+
         c.moveToFirst();
+        int passwordindex = c.getColumnIndex("Password");
         String password = c.getString(passwordindex);
 
         if(loginP.getText().toString() == password){
