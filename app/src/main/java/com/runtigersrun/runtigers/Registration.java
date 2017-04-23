@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.runtigersrun.runtigers.activity.MainActivity;
-import com.runtigersrun.runtigers.app.User;
+import com.runtigersrun.runtigers.model.User;
 
 public class Registration extends AppCompatActivity {
 

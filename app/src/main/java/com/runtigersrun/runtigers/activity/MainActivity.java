@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.Registration;
-import com.runtigersrun.runtigers.app.User;
+import com.runtigersrun.runtigers.model.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;

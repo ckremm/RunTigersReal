@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.runtigersrun.runtigers.app.TrackProperties;
+import com.runtigersrun.runtigers.model.TrackProperties;
 
 import java.util.ArrayList;
 import java.util.List;

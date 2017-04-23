@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.TrackAdapter;
 import com.runtigersrun.runtigers.TrackEditor;
-import com.runtigersrun.runtigers.app.TrackProperties;
+import com.runtigersrun.runtigers.model.TrackProperties;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,7 +103,7 @@ public class Tracks extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytracktext.php";
+            json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displayEstimotes.php";
             //json_urlUser = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytext.php";
         }
 

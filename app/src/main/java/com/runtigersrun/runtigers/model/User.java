@@ -1,13 +1,6 @@
-package com.runtigersrun.runtigers.app;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+package com.runtigersrun.runtigers.model;
 
 import static android.app.PendingIntent.getActivity;
-import static android.content.Context.MODE_PRIVATE;
-import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.runtigersrun.runtigers.app;
+package com.runtigersrun.runtigers.model;
 
 /**
  * Created by cjkremm on 4/22/17.
