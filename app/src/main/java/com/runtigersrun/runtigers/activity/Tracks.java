@@ -130,19 +130,17 @@ public class Tracks extends AppCompatActivity {
             }
         });
 
-        editUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userIntent = new Intent(Tracks.this, EditUser.class);
-                Tracks.this.startActivity(userIntent);
-            }
-        });
     }
 
     public void toRoute(View view) {
         Intent trackIntent = new Intent(Tracks.this, Route.class);
         trackIntent.putExtra("Json_data", j_string);
         this.startActivity((trackIntent));
+    }
+
+    public void toEditUser(View view){
+        Intent editUserintent = new Intent(Tracks.this, EditUser.class);
+        this.startActivity((editUserintent));
     }
 
     class backgroundtask extends AsyncTask<Void, Void, String> {
