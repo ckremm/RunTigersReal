@@ -31,15 +31,13 @@ public class Registration extends AppCompatActivity {
         EditText last = (EditText)findViewById(R.id.regEditLName);
         EditText username = (EditText)findViewById(R.id.regEditUser);
         EditText password = (EditText)findViewById(R.id.regEditPass);
-        EditText email = (EditText)findViewById(R.id.regEditEmail);
 
         String fi = first.getText().toString();
         String la = last.getText().toString();
         String un = username.getText().toString();
         String pass = password.getText().toString();
-        String em = email.getText().toString();
 
-        if(fi.isEmpty() || la.isEmpty() || un.isEmpty() || pass.isEmpty() || em.isEmpty()){
+        if(fi.isEmpty() || la.isEmpty() || un.isEmpty() || pass.isEmpty()){
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_LONG).show();
         }
         else{
