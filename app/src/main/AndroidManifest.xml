@@ -24,7 +24,8 @@
         <activity android:name=".activity.UserInfo" />
         <activity android:name=".activity.EditUser" />
         <activity android:name=".Groups" />
-        <activity android:name=".GroupEditor"></activity>
+        <activity android:name=".GroupEditor" />
+        <activity android:name=".activity.Route"></activity>
     </application>
 
 </manifest>
