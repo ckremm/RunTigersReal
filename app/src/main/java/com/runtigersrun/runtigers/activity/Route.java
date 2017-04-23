@@ -43,8 +43,9 @@ public class Route extends AppCompatActivity {
             int seconds = (int) (millis / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
+            int mill = (int) (millis % 1000) ;
 
-            timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+            timerTextView.setText(String.format("%d:%02d.%03d", minutes, seconds, mill));
 
             timerHandler.postDelayed(this, 500);
         }
