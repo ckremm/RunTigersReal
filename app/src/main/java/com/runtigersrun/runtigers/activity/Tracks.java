@@ -45,6 +45,8 @@ public class Tracks extends AppCompatActivity {
         setContentView(R.layout.activity_tracks);
         lv = (ListView) findViewById(R.id.trackListView);
 
+        new backgroundtask().execute();
+
         ta = new TrackAdapter(this, R.layout.trackrow);
         lv.setAdapter(ta);
         jdata = getIntent().getExtras().getString("Json_data");
