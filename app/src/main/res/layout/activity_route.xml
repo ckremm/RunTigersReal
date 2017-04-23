@@ -10,4 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.runtigersrun.runtigers.activity.Route">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/routeListView" />
+
 </RelativeLayout>

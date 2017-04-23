@@ -5,11 +5,12 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.runtigersrun.runtigers.R;
-import com.runtigersrun.runtigers.TrackAdapter;
+import com.runtigersrun.runtigers.control.TrackAdapter;
 import com.runtigersrun.runtigers.TrackEditor;
 import com.runtigersrun.runtigers.model.TrackProperties;
 
@@ -24,6 +25,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Tracks extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class Tracks extends AppCompatActivity {
     JSONObject jobj;
     JSONArray jarray;
     TrackAdapter ta;
+    ArrayList<TrackProperties> tracks;
     ListView lv;
 
     //
@@ -63,6 +66,7 @@ public class Tracks extends AppCompatActivity {
                 Finish = jo.getString("FinishEstimote");
                 TrackProperties tp = new TrackProperties(TrackName, Start, Checkpoint, Finish);
 
+                tracks.add(tp);
                 ta.add(tp);
 
                 c++;
@@ -70,6 +74,13 @@ public class Tracks extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String main = lv.getSelectedItem().toString();
+            }
+        });
 
         Button trackEditor = (Button) findViewById(R.id.buttonEditTrack);
         Button editUser = (Button) findViewById(R.id.buttonEditUser);
@@ -94,7 +105,7 @@ public class Tracks extends AppCompatActivity {
     public void toRoute(View view) {
         Intent trackIntent = new Intent(Tracks.this, Route.class);
         trackIntent.putExtra("Json_data", j_string);
-        Route.this.startActivity((trackIntent));
+        this.startActivity((trackIntent));
     }
 
     class backgroundtask extends AsyncTask<Void, Void, String> {
