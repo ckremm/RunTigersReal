@@ -1,7 +1,10 @@
 package com.runtigersrun.runtigers.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         new backgroundtask().execute();
         new backgroundtask2().execute();
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni==null || !ni.isConnected()){
+            Toast.makeText(this, "Network Unavailable!", Toast.LENGTH_LONG);
+        }
+
     }
 
 
