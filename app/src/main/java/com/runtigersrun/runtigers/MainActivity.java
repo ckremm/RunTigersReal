@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -34,21 +35,26 @@ public class MainActivity extends AppCompatActivity {
     private EditText loginU;
     private EditText loginP;
     String JSON_STRING;
+    String JSON_STRINGUSER;
     String j_string;
-
+    String j_stringuser;
+    String jdata;
+    JSONObject jobj;
+    JSONArray jarray;
+    ArrayList<User> users;
+    String un;
+    String pa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new backgroundtask().execute();
+        new backgroundtask2().execute();
     }
 
 
-
-
-
-    public void toInfo(View view){
+    public void toInfo(View view) {
         AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -59,43 +65,80 @@ public class MainActivity extends AppCompatActivity {
         infoBuilder.show();
     }
 
-    public void toRegister(View view){
+    public void toRegister(View view) {
         Intent registerIntent = new Intent(MainActivity.this, Registration.class);
         MainActivity.this.startActivity((registerIntent));
     }
 
     public void toTracks(View view) {
 
+        users = new ArrayList<User>();
         final EditText loginU = (EditText) findViewById(R.id.loginUser);
         final EditText loginP = (EditText) findViewById(R.id.loginPass);
         Button loginB = (Button) findViewById(R.id.loginButton);
         TextView register = (TextView) findViewById(R.id.registerHereText);
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
 
+        jdata = j_stringuser;
 
+        //Toast.makeText()
 
-        Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
-        trackIntent.putExtra("Json_data", j_string);
-        MainActivity.this.startActivity((trackIntent));
+        try {
+            jobj = new JSONObject(jdata);
+            jarray = jobj.getJSONArray("user_response");
+            int c = 0;
+            String ID, FName, LName, Username, Pass;
+            while(c < jarray.length()) {
+                JSONObject jo = jarray.getJSONObject(c);
+                ID = jo.getString("userID");
+                FName = jo.getString("FirstName");
+                LName = jo.getString("LastName");
+                Username = jo.getString("Username");
+                Pass = jo.getString("Password");
+                User u = new User(FName, LName, Username, Pass);
+
+                users.add(u);
+                c++;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        un = loginU.getText().toString();
+        pa = loginP.getText().toString();
+
+        for(User use : users){
+            if(use.getUname().equals(un)){
+                if(use.getPass().equals(pa)){
+                    Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
+                    trackIntent.putExtra("Json_data", j_string);
+                    MainActivity.this.startActivity((trackIntent));
+                }
+            }
+        }
+        Toast.makeText(this, "Wrong Username or Password.", Toast.LENGTH_LONG);
+
     }
 
-    class backgroundtask extends AsyncTask<Void, Void, String>{
+    class backgroundtask extends AsyncTask<Void, Void, String> {
         String json_url;
+        String json_urlUser;
+
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytracktext.php";
+            //json_urlUser = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytext.php";
         }
 
         @Override
-        protected String doInBackground(Void... voids){
+        protected String doInBackground(Void... voids) {
             try {
                 URL url = new URL(json_url);
                 HttpURLConnection huc = (HttpURLConnection) url.openConnection();
                 InputStream is = huc.getInputStream();
                 BufferedReader bf = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
-                while((JSON_STRING = bf.readLine()) != null ){
-                    sb.append(JSON_STRING+"\n");
+                while ((JSON_STRING = bf.readLine()) != null) {
+                    sb.append(JSON_STRING + "\n");
                 }
 
                 bf.close();
@@ -104,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
                 return sb.toString().trim();
 
-            }catch(MalformedURLException e){
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -114,21 +157,63 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Void... values){
+        protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }
 
         @Override
-        protected void onPostExecute(String result){
-            TextView tv  = (TextView)findViewById(R.id.tv);
-            tv.setText(result);
+        protected void onPostExecute(String result) {
             j_string = result;
+        }
+    }
+    class backgroundtask2 extends AsyncTask<Void, Void, String> {
+        String json_url;
+        String json_urlUser;
+
+        @Override
+        protected void onPreExecute() {
+            //json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytracktext.php";
+            json_urlUser = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytext.php";
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(json_urlUser);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                InputStream is = huc.getInputStream();
+                BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                while ((JSON_STRINGUSER = bf.readLine()) != null) {
+                    sb.append(JSON_STRINGUSER + "\n");
+                }
+
+                bf.close();
+                is.close();
+                huc.disconnect();
+
+                return sb.toString().trim();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            j_stringuser = result;
         }
 
     }
-
-
-
 
 
 }

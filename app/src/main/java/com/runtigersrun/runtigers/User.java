@@ -16,51 +16,44 @@ import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
 
 public class User {
 
+    private String fname, lname, uname, pass;
 
-    public static final String TABLE_NAME_USERS = "Users";
-    public static final String COLUMN_NAME_USERID = "userID";
-    public static final String COLUMN_NAME_FIRSTN = "FirstName";
-    public static final String COLUMN_NAME_LASTN = "LastName";
-    public static final String COLUMN_NAME_USERN = "Username";
-    public static final String COLUMN_NAME_PASS = "Password";
-    public static final String COLUMN_NAME_EMAIL = "Email";
-    private static final String TEXT_TYPE = " VARCHAR";
-    private static final String COMMA_SEP = ",";
-    private static final String SPACE = " ";
-
-
-    private String FirstName;
-    private String LastName;
-    private String Username;
-    private String Password;
-    private String Email;
-
-
-    public User(String fname, String lname, String uname, String pass, String mail) {
-        FirstName = fname;
-        LastName = lname;
-        Username = uname;
-        Password = pass;
-        Email = mail;
-
-//        updateInternal();
+    public User(String fname, String lname, String uname, String pass){
+        this.setName(fname);
+        this.setStart(lname);
+        this.setUname(uname);
+        this.setPass(pass);
     }
-/*
-    private void updateInternal(){
-        try{
 
-            //SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(MainActivity.COLUMN_NAME_FIRSTN, FirstName);
-            contentValues.put(MainActivity.COLUMN_NAME_LASTN, LastName);
-            contentValues.put(MainActivity.COLUMN_NAME_USERN, Username);
-            contentValues.put(MainActivity.COLUMN_NAME_PASS, Password);
-            contentValues.put(MainActivity.COLUMN_NAME_EMAIL, Email);
-            MainActivity.myDB.insert(MainActivity.TABLE_NAME_USERS, null, contentValues);
-                 }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+    public String getFname() {
+        return fname;
     }
-*/
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setName(String name) {
+        this.fname = name;
+    }
+
+    public void setStart(String name) {
+        this.lname = name;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }

@@ -41,7 +41,7 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(this, "All fields are required!", Toast.LENGTH_LONG).show();
         }
         else{
-            User u = new User(fi,la,un,pass,em);
+            User u = new User(fi,la,un,pass);
             Toast.makeText(this, "User added!", Toast.LENGTH_LONG).show();
 
             Intent maIntent = new Intent(Registration.this, MainActivity.class);
