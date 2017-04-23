@@ -133,7 +133,7 @@ public class Tracks extends AppCompatActivity {
         editUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent userIntent = new Intent(Tracks.this, UserInfo.class);
+                Intent userIntent = new Intent(Tracks.this, EditUser.class);
                 Tracks.this.startActivity(userIntent);
             }
         });
