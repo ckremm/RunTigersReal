@@ -27,9 +27,9 @@ public class RouteAdapter extends ArrayAdapter{
     }
 
 
-    public void add(Estimote e){
-        super.add(e);
-        list.add(e);
+    public void add(String s){
+        super.add(s);
+        list.add(s);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class RouteAdapter extends ArrayAdapter{
             rh = (RouteAdapter.RouteHolder) row.getTag();
         }
 
-        Estimote est = (Estimote) this.getItem(position);
-        rh.call.setText(est.getCallsign());
+        //Estimote est = (Estimote) this.getItem(position);
+        rh.call.setText((String)this.getItem(position));
 
         return row;
     }

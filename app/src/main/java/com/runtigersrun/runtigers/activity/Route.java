@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Route extends AppCompatActivity {
 
     String jdata;
@@ -21,17 +23,26 @@ public class Route extends AppCompatActivity {
     JSONArray jarray;
     RouteAdapter ra;
     ListView lv;
+    ArrayList<Estimote> es;
+    Tracks myT;
+    String start;
+    String chp;
+    String fin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
+        myT = new Tracks();
         lv = (ListView) findViewById(R.id.routeListView);
 
         ra = new RouteAdapter(this, R.layout.routerow);
         lv.setAdapter(ra);
         jdata = getIntent().getExtras().getString("Json_data");
+        start = getIntent().getExtras().getString("Start");
+        chp = getIntent().getExtras().getString("Checkpoint");
+        fin = getIntent().getExtras().getString("Finish");
 
 
         try {
@@ -47,12 +58,16 @@ public class Route extends AppCompatActivity {
                 Callsign = jo.getString("Callsign");;
                 Estimote e = new Estimote(UUID, Major, Minor, Callsign);
 
-                ra.add(e);
+                es.add(e);
 
                 c++;
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        ra.add(start);
+        ra.add(chp);
+        ra.add(fin);
     }
 }

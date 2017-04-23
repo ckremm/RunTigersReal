@@ -42,6 +42,7 @@ public class Tracks extends AppCompatActivity {
     TrackAdapter ta;
     ArrayList<TrackProperties> tracks;
     ListView lv;
+    TrackProperties t;
 
     //blank
     @Override
@@ -88,7 +89,7 @@ public class Tracks extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                TrackProperties t = tracks.get(position);
+                final TrackProperties t = tracks.get(position);
 
                 final String[] option = new String[] { "View Route", "Leader Board"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(Tracks.this,
@@ -102,6 +103,9 @@ public class Tracks extends AppCompatActivity {
                         //Toast.makeText(Tracks.this, "%i"+ which, Toast.LENGTH_LONG).show();
                         if(which == 0){
                             Intent trackIntent = new Intent(Tracks.this, Route.class);
+                            trackIntent.putExtra("Start", t.getStart());
+                            trackIntent.putExtra("Checkpoint", t.getCheckpoint());
+                            trackIntent.putExtra("Finish", t.getFinish());
                             trackIntent.putExtra("Json_data", j_string);
                             Tracks.this.startActivity((trackIntent));
                         }
@@ -109,11 +113,6 @@ public class Tracks extends AppCompatActivity {
                     }
                 });
                 final AlertDialog dialog = builder.create();
-
-                //after item is clicked, alert dialog asks user to edit or delete
-//                final AlertDialog alertDialog;
-//                alertDialog = new AlertDialog.Builder(Tracks.this).create();
-//                alertDialog.setMessage(t.getName());
                 dialog.show();
 
             }
@@ -139,11 +138,6 @@ public class Tracks extends AppCompatActivity {
         });
     }
 
-    public void toRoute(View view) {
-        Intent trackIntent = new Intent(Tracks.this, Route.class);
-        trackIntent.putExtra("Json_data", j_string);
-        this.startActivity((trackIntent));
-    }
 
     class backgroundtask extends AsyncTask<Void, Void, String> {
         String json_url;
