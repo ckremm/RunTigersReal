@@ -1,13 +1,18 @@
 package com.runtigersrun.runtigers.activity;
 
+import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.control.TrackAdapter;
@@ -46,9 +51,10 @@ public class Tracks extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.trackListView);
 
         new backgroundtask().execute();
-
+        tracks = new ArrayList<TrackProperties>();
         ta = new TrackAdapter(this, R.layout.trackrow);
         lv.setAdapter(ta);
+
         jdata = getIntent().getExtras().getString("Json_data");
 
         //Toast.makeText()
@@ -77,10 +83,39 @@ public class Tracks extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        lv.setClickable(true);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String main = lv.getSelectedItem().toString();
+
+                TrackProperties t = tracks.get(position);
+
+                final String[] option = new String[] { "View Route", "Leader Board"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Tracks.this,
+                        android.R.layout.select_dialog_item, option);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Tracks.this);
+
+                builder.setTitle(t.getName());
+                builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(Tracks.this, "%i"+ which, Toast.LENGTH_LONG).show();
+                        if(which == 0){
+                            Intent trackIntent = new Intent(Tracks.this, Route.class);
+                            trackIntent.putExtra("Json_data", j_string);
+                            Tracks.this.startActivity((trackIntent));
+                        }
+
+                    }
+                });
+                final AlertDialog dialog = builder.create();
+
+                //after item is clicked, alert dialog asks user to edit or delete
+//                final AlertDialog alertDialog;
+//                alertDialog = new AlertDialog.Builder(Tracks.this).create();
+//                alertDialog.setMessage(t.getName());
+                dialog.show();
+
             }
         });
 
