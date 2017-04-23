@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         for(User use : users){
             if(use.getUname().equals(un)){
                 if(use.getPass().equals(pa)){
-                    use = currentUser;
+                    currentUser = use;
                     Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
                     trackIntent.putExtra("Json_data", j_string);
                     MainActivity.this.startActivity((trackIntent));
