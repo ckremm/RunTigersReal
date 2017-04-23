@@ -17,6 +17,9 @@ import com.runtigersrun.runtigers.model.TrackProperties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.estimote.sdk.Beacon;
+import com.estimote.sdk.BeaconManager;
+import com.estimote.sdk.Region;
 
 import java.util.ArrayList;
 

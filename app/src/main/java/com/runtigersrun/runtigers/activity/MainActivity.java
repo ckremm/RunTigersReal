@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker;
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.model.User;
 
@@ -223,6 +224,13 @@ public class MainActivity extends AppCompatActivity {
             j_stringuser = result;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
     }
 
 
