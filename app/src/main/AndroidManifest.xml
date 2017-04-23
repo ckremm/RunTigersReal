@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".Registration" />
+        <activity android:name=".activity.Registration" />
         <activity android:name=".activity.Tracks" />
         <activity android:name=".TrackEditor" />
         <activity android:name=".activity.UserInfo" />

@@ -38,7 +38,7 @@ public class Tracks extends AppCompatActivity {
     ArrayList<TrackProperties> tracks;
     ListView lv;
 
-    //
+    //blank
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
