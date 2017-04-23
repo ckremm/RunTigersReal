@@ -1,10 +1,13 @@
 package com.runtigersrun.runtigers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.app.PendingIntent.getActivity;
 import static android.content.Context.MODE_PRIVATE;
+import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
 
 
 /**
@@ -26,8 +29,6 @@ public class User {
     private static final String SPACE = " ";
 
 
-
-
     private String FirstName;
     private String LastName;
     private String Username;
@@ -35,26 +36,31 @@ public class User {
     private String Email;
 
 
-    public User (String fname, String lname, String uname, String pass, String mail){
+    public User(String fname, String lname, String uname, String pass, String mail) {
         FirstName = fname;
         LastName = lname;
         Username = uname;
         Password = pass;
         Email = mail;
 
-        updateInternal();
+//        updateInternal();
     }
-
+/*
     private void updateInternal(){
         try{
 
-            MainActivity.myDB.execSQL("INSERT INTO " + MainActivity.TABLE_NAME_USERS + SPACE +
-                    "VALUES (NULL, '" + FirstName + "', '" + LastName + "', '" + Username + "', '" + Password + "', '" + Email + "')");
-        }
+            //SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MainActivity.COLUMN_NAME_FIRSTN, FirstName);
+            contentValues.put(MainActivity.COLUMN_NAME_LASTN, LastName);
+            contentValues.put(MainActivity.COLUMN_NAME_USERN, Username);
+            contentValues.put(MainActivity.COLUMN_NAME_PASS, Password);
+            contentValues.put(MainActivity.COLUMN_NAME_EMAIL, Email);
+            MainActivity.myDB.insert(MainActivity.TABLE_NAME_USERS, null, contentValues);
+                 }
         catch (Exception e){
             e.printStackTrace();
         }
     }
-
-
+*/
 }

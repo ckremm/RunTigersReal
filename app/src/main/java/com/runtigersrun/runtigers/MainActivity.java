@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,74 +16,37 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    public static final String COLUMN_NAME_USERID = "userID";
-    public static final String COLUMN_NAME_FIRSTN = "FirstName";
-    public static final String COLUMN_NAME_LASTN = "LastName";
-    public static final String COLUMN_NAME_USERN = "Username";
-    public static final String COLUMN_NAME_PASS = "Password";
-    public static final String COLUMN_NAME_EMAIL = "Email";
-    private static final String TEXT_TYPE = " VARCHAR";
-    private static final String COMMA_SEP = ",";
-    private static final String SPACE = " ";
-
-    public static final String DATABASE_NAME = "RTR";
-    public static final String TABLE_NAME_USERS = "User";
-    public static SQLiteDatabase myDB;
     private EditText loginU;
     private EditText loginP;
+    String JSON_STRING;
+    String j_string;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        try{
-
-            myDB = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
-            MainActivity.myDB.execSQL(
-                "CREATE TABLE IF NOT EXISTS " + MainActivity.TABLE_NAME_USERS + " (" +
-                        COLUMN_NAME_USERID + " INTEGER PRIMARY KEY autoincrement not null," +
-                        COLUMN_NAME_FIRSTN + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_LASTN + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_USERN + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_PASS + TEXT_TYPE + COMMA_SEP +
-                        COLUMN_NAME_EMAIL + TEXT_TYPE  +
-                        " )");
-            myDB.execSQL("DELETE FROM "+ TABLE_NAME_USERS);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        String str;
-        try {
-            // Create a URL for the desired page
-            URL url = new URL("https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytext.php");
-
-            // Read all the text returned by the server
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            while ((str = in.readLine()) != null) {
-                str = in.readLine().toString();
-                System.out.println(str);
-                // str is one line of text; readLine() strips the newline character(s)
-            }
-            in.close();
-        } catch (MalformedURLException e) {
-        } catch (IOException e) {
-        }
-
-
+        new backgroundtask().execute();
     }
+
+
+
+
 
     public void toInfo(View view){
         AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -109,24 +73,61 @@ public class MainActivity extends AppCompatActivity {
         ImageButton info = (ImageButton) findViewById(R.id.infoButton);
 
 
-        Cursor c = MainActivity.myDB.rawQuery("SELECT * FROM "+ TABLE_NAME_USERS
-               + " WHERE TRIM(Username) = ?" , new String[] {loginU.getText().toString()});
 
+        Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
+        trackIntent.putExtra("Json_data", j_string);
+        MainActivity.this.startActivity((trackIntent));
+    }
 
-
-        c.moveToFirst();
-        int passwordindex = c.getColumnIndex("Password");
-        String password = c.getString(passwordindex);
-
-        if(loginP.getText().toString() == password){
-            Intent loginIntent = new Intent(MainActivity.this, Tracks.class);
-            MainActivity.this.startActivity(loginIntent);
-        }else{
-            Toast.makeText(MainActivity.this, "Username or Password is incorrect", Toast.LENGTH_LONG).show();
+    class backgroundtask extends AsyncTask<Void, Void, String>{
+        String json_url;
+        @Override
+        protected void onPreExecute(){
+            json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displaytracktext.php";
         }
 
+        @Override
+        protected String doInBackground(Void... voids){
+            try {
+                URL url = new URL(json_url);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                InputStream is = huc.getInputStream();
+                BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                while((JSON_STRING = bf.readLine()) != null ){
+                    sb.append(JSON_STRING+"\n");
+                }
+
+                bf.close();
+                is.close();
+                huc.disconnect();
+
+                return sb.toString().trim();
+
+            }catch(MalformedURLException e){
+                e.printStackTrace();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values){
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            TextView tv  = (TextView)findViewById(R.id.tv);
+            tv.setText(result);
+            j_string = result;
+        }
 
     }
+
+
 
 
 
