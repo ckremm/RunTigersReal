@@ -78,31 +78,12 @@
         android:layout_alignParentStart="true"
         android:id="@+id/regEditPass" />
 
-    <TextView
-        android:text="Email:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/regEditPass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/regTEmail" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/regTEmail"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/regEditEmail" />
-
     <Button
         android:text="Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/regButton"
-        android:layout_below="@+id/regEditEmail"
+        android:layout_below="@+id/regEditPass"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:onClick="clickRegister" />
