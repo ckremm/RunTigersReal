@@ -1,4 +1,4 @@
-package com.runtigersrun.runtigers;
+package com.runtigersrun.runtigers.app;
 
 import android.content.ContentValues;
 import android.content.Context;

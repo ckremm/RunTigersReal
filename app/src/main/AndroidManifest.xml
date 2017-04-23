@@ -10,19 +10,19 @@
         android:label="Run Tigers Run"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Splash">
+        <activity android:name=".activity.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".Registration" />
-        <activity android:name=".Tracks" />
+        <activity android:name=".activity.Tracks" />
         <activity android:name=".TrackEditor" />
-        <activity android:name=".UserInfo" />
-        <activity android:name=".EditUser" />
+        <activity android:name=".activity.UserInfo" />
+        <activity android:name=".activity.EditUser" />
         <activity android:name=".Groups" />
         <activity android:name=".GroupEditor"></activity>
     </application>
