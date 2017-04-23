@@ -1,8 +1,12 @@
 package com.runtigersrun.runtigers.activity;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.control.RouteAdapter;
@@ -28,11 +32,50 @@ public class Route extends AppCompatActivity {
     String start;
     String chp;
     String fin;
+    TextView timerTextView;
+    long startTime = 0;
+
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+            timerTextView.setText(String.format("%d:%02d", minutes, seconds));
+
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
+
+
+        // Timer
+        timerTextView = (TextView) findViewById(R.id.timerTextView);
+        Button b =(Button) findViewById(R.id.startButton);
+        b.setText("start");
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                if (b.getText().equals("stop")) {
+                    timerHandler.removeCallbacks(timerRunnable);
+                    b.setText("start");
+                } else {
+                    startTime = System.currentTimeMillis();
+                    timerHandler.postDelayed(timerRunnable, 0);
+                    b.setText("stop");
+                }
+            }
+        });
+
+
 
         myT = new Tracks();
         lv = (ListView) findViewById(R.id.routeListView);
@@ -69,5 +112,13 @@ public class Route extends AppCompatActivity {
         ra.add(start);
         ra.add(chp);
         ra.add(fin);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        timerHandler.removeCallbacks(timerRunnable);
+        Button b = (Button) findViewById(R.id.startButton);
+        b.setText("start");
     }
 }
