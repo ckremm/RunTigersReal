@@ -61,18 +61,24 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Network Unavailable!", Toast.LENGTH_LONG);
         }
 
-    }
+        ImageButton info = (ImageButton) findViewById(R.id.infoButton);
+
+        // Info panel
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    infoBuilder.setView(R.layout.activity_info);
+                }
+
+                infoBuilder.create();
+                infoBuilder.show();
+            }
+        });
 
 
-    public void toInfo(View view) {
-        AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            infoBuilder.setView(R.layout.activity_info);
-        }
-
-        infoBuilder.create();
-        infoBuilder.show();
     }
 
     public void toRegister(View view) {
