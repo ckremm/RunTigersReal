@@ -191,7 +191,18 @@ public class Route extends AppCompatActivity {
                         public void onInit(int status) {
                             if (status != TextToSpeech.ERROR) {
                                 tts.setLanguage(Locale.US);
+                            }
 
+                        }
+                    });
+                }
+                if(val.equals(st.getMajor())){
+                    Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
+                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        //@Override
+                        public void onInit(int status) {
+                            if (status != TextToSpeech.ERROR) {
+                                tts.setLanguage(Locale.US);
                             }
 
                         }
