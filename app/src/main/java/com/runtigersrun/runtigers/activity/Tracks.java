@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.runtigersrun.runtigers.Leaderboards;
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.control.TrackAdapter;
 import com.runtigersrun.runtigers.TrackEditor;
@@ -109,7 +110,11 @@ public class Tracks extends AppCompatActivity {
                             trackIntent.putExtra("Json_data", j_string);
                             Tracks.this.startActivity((trackIntent));
                         }
-
+                        else if (which == 1){
+                            Intent leaderboarintent = new Intent(Tracks.this, Leaderboards.class);
+                            leaderboarintent.putExtra("TrackName",t.getName());
+                            Tracks.this.startActivity((leaderboarintent));
+                        }
                     }
                 });
                 final AlertDialog dialog = builder.create();
