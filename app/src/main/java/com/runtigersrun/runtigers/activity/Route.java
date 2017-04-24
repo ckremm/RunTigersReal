@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.control.RouteAdapter;
@@ -78,7 +79,7 @@ public class Route extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
-        es = new ArrayList<Estimote>();
+        es = new ArrayList<>();
 
         region = new Region("ranged region",
                 UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
@@ -127,7 +128,7 @@ public class Route extends AppCompatActivity {
                 UUID = jo.getString("UUID");
                 Major = jo.getString("Major");
                 Minor = jo.getString("Minor");
-                Callsign = jo.getString("CallSign");;
+                Callsign = jo.getString("CallSign");
                 Estimote e = new Estimote(UUID, Major, Minor, Callsign);
 
                 es.add(e);
@@ -153,6 +154,8 @@ public class Route extends AppCompatActivity {
     }
 
     public void monitor(){
+
+        Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
         beaconManager = new BeaconManager(getApplicationContext());
 
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
@@ -178,10 +181,13 @@ public class Route extends AppCompatActivity {
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
+                Toast.makeText(Route.this, list.size(), Toast.LENGTH_SHORT).show();
                 if (!list.isEmpty()) {
                     nearestBeacon = list.get(0);
+                    Toast.makeText(Route.this, nearestBeacon.getMajor(), Toast.LENGTH_LONG).show();
                     if (nearestBeacon.getMajor() == Integer.parseInt(es.get(0).getMajor())) {
                         if (marker == 0) {
+                            Toast.makeText(Route.this, "What the Fuck", Toast.LENGTH_SHORT).show();
                             tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                                 //@Override
                                 public void onInit(int status) {
@@ -189,12 +195,12 @@ public class Route extends AppCompatActivity {
                                         tts.setLanguage(Locale.US);
 
                                     }
-                                    ;
+
                                 }
                             });
 
                             tts.speak("Test Test",TextToSpeech.QUEUE_FLUSH, null);
-                        marker++;
+                            marker++;
                         }
                     }
                 }
