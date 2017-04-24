@@ -3,7 +3,7 @@
     package="com.runtigersrun.runtigers">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,8 @@
         <activity android:name=".activity.EditUser" />
         <activity android:name=".Groups" />
         <activity android:name=".GroupEditor" />
-        <activity android:name=".activity.Route"></activity>
+        <activity android:name=".activity.Route" />
+        <activity android:name=".Leaderboards"></activity>
     </application>
 
 </manifest>
