@@ -122,17 +122,27 @@ public class MainActivity extends AppCompatActivity {
         un = loginU.getText().toString();
         pa = loginP.getText().toString();
 
+        boolean login = false;
         for(User use : users){
             if(use.getUname().equals(un)){
                 if(use.getPass().equals(pa)){
+                    login = true;
                     currentUser = use;
-                    Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
-                    trackIntent.putExtra("Json_data", j_string);
-                    MainActivity.this.startActivity((trackIntent));
+
                 }
             }
         }
-        Toast.makeText(this, "Wrong Username or Password.", Toast.LENGTH_LONG).show();
+        
+        if (login){
+            Intent trackIntent = new Intent(MainActivity.this, Tracks.class);
+            trackIntent.putExtra("Json_data", j_string);
+            MainActivity.this.startActivity((trackIntent));
+        }
+        else
+        {
+            Toast.makeText(this, "Wrong Username or Password.", Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
