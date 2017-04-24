@@ -170,9 +170,33 @@ public class Route extends AppCompatActivity {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 String val = String.valueOf(list.get(0).getMajor());
+                Estimote st = null;
+                String eval = String.valueOf(es.size());
+
+                for(Estimote E: es){
+                    if(E.getCallsign().equals(start)){
+                        st = E;
+                    }
+                }
 
                 Toast.makeText(Route.this, val, Toast.LENGTH_LONG).show();
-                beaconManager.startRanging(region);
+                Toast.makeText(Route.this, "Break", Toast.LENGTH_LONG).show();
+                Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
+                //beaconManager.startRanging(region);
+
+                if(val.equals(st.getMajor())){
+                    Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
+                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        //@Override
+                        public void onInit(int status) {
+                            if (status != TextToSpeech.ERROR) {
+                                tts.setLanguage(Locale.US);
+
+                            }
+
+                        }
+                    });
+                }
 
             }
 
