@@ -171,17 +171,23 @@ public class Route extends AppCompatActivity {
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 String val = String.valueOf(list.get(0).getMajor());
                 Estimote st = null;
+                Estimote ch = null;
+                Estimote f = null;
                 String eval = String.valueOf(es.size());
 
                 for(Estimote E: es){
                     if(E.getCallsign().equals(start)){
                         st = E;
+                    }else if(E.getCallsign().equals(chp)){
+                        ch = E;
+                    }else if(E.getCallsign().equals(fin)){
+                        f = E;
                     }
                 }
 
-                Toast.makeText(Route.this, val, Toast.LENGTH_LONG).show();
-                Toast.makeText(Route.this, "Break", Toast.LENGTH_LONG).show();
-                Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
+                //Toast.makeText(Route.this, val, Toast.LENGTH_LONG).show();
+                //Toast.makeText(Route.this, "Break", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
                 //beaconManager.startRanging(region);
 
                 if(val.equals(st.getMajor())){
@@ -192,11 +198,11 @@ public class Route extends AppCompatActivity {
                             if (status != TextToSpeech.ERROR) {
                                 tts.setLanguage(Locale.US);
                             }
-
                         }
                     });
+                    tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null, "Test");
                 }
-                if(val.equals(st.getMajor())){
+                if(val.equals(ch.getMajor())){
                     Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
                     tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                         //@Override
@@ -207,6 +213,21 @@ public class Route extends AppCompatActivity {
 
                         }
                     });
+                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null, "Test2");
+                }
+                if(val.equals(f.getMajor())){
+                    Toast.makeText(Route.this, "Found Ice" +
+                            "", Toast.LENGTH_LONG).show();
+                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                        //@Override
+                        public void onInit(int status) {
+                            if (status != TextToSpeech.ERROR) {
+                                tts.setLanguage(Locale.US);
+                            }
+
+                        }
+                    });
+                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null, "Test3");
                 }
 
             }
