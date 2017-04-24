@@ -81,18 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void toInfo(View view) {
-        AlertDialog.Builder infoBuilder = new AlertDialog.Builder(MainActivity.this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            infoBuilder.setView(R.layout.activity_info);
-        }
-
-        infoBuilder.create();
-        infoBuilder.show();
-    }
-
     public void toRegister(View view) {
         Intent registerIntent = new Intent(MainActivity.this, Registration.class);
         MainActivity.this.startActivity((registerIntent));
