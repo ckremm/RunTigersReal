@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.estimote.sdk.Region;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Route extends AppCompatActivity {
@@ -42,11 +44,18 @@ public class Route extends AppCompatActivity {
     String start;
     String chp;
     String fin;
+    Estimote e1;
+    Estimote e2;
+    Estimote e3;
     TextView timerTextView;
     long startTime = 0;
     private BeaconManager beaconManager;
     int marker = 0;
     Region region;
+    TextToSpeech tts;
+    Beacon nearestBeacon;
+    int prevBeacon = -1;
+
 
 
     Handler timerHandler = new Handler();
@@ -69,6 +78,10 @@ public class Route extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
+        es = new ArrayList<Estimote>();
+
+        region = new Region("ranged region",
+                UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
 
         // Timer
@@ -114,7 +127,7 @@ public class Route extends AppCompatActivity {
                 UUID = jo.getString("UUID");
                 Major = jo.getString("Major");
                 Minor = jo.getString("Minor");
-                Callsign = jo.getString("Callsign");;
+                Callsign = jo.getString("CallSign");;
                 Estimote e = new Estimote(UUID, Major, Minor, Callsign);
 
                 es.add(e);
@@ -140,31 +153,51 @@ public class Route extends AppCompatActivity {
     }
 
     public void monitor(){
-        region = new Region("ranged region", UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
         beaconManager = new BeaconManager(getApplicationContext());
 
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
-                beaconManager.startMonitoring(new Region(
-                        "monitored region",
-                        UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"),
-                        null, null));
+                beaconManager.startMonitoring(region);
+
             }
         });
 
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
-                showNotification(
-                        "Your gate closes in 47 minutes.",
-                        "Current security wait time is 15 minutes, "
-                                + "and it's a 5 minute walk from security to the gate. "
-                                + "Looks like you've got plenty of time!");
+                beaconManager.startRanging(region);
+
             }
+
             @Override
             public void onExitedRegion(Region region) {
-                // could add an "exit" notification too if you want (-:
+            }
+        });
+
+        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
+            @Override
+            public void onBeaconsDiscovered(Region region, List<Beacon> list) {
+                if (!list.isEmpty()) {
+                    nearestBeacon = list.get(0);
+                    if (nearestBeacon.getMajor() == Integer.parseInt(es.get(0).getMajor())) {
+                        if (marker == 0) {
+                            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                                //@Override
+                                public void onInit(int status) {
+                                    if (status != TextToSpeech.ERROR) {
+                                        tts.setLanguage(Locale.US);
+
+                                    }
+                                    ;
+                                }
+                            });
+
+                            tts.speak("Test Test",TextToSpeech.QUEUE_FLUSH, null);
+                        marker++;
+                        }
+                    }
+                }
             }
         });
     }
