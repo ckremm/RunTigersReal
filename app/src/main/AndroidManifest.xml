@@ -11,7 +11,7 @@
         android:icon="@drawable/appicon"
         android:label="Run Tigers Run"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/theTheme">
         <activity android:name=".activity.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
