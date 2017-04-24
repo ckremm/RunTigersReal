@@ -155,7 +155,7 @@ public class Route extends AppCompatActivity {
 
     public void monitor(){
 
-        Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
         beaconManager = new BeaconManager(getApplicationContext());
 
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
@@ -169,22 +169,27 @@ public class Route extends AppCompatActivity {
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
+                String val = String.valueOf(list.get(0).getMajor());
+
+                Toast.makeText(Route.this, val, Toast.LENGTH_LONG).show();
                 beaconManager.startRanging(region);
 
             }
 
             @Override
             public void onExitedRegion(Region region) {
+                Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
+
             }
         });
 
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
-                Toast.makeText(Route.this, list.size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Route.this, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
                 if (!list.isEmpty()) {
                     nearestBeacon = list.get(0);
-                    Toast.makeText(Route.this, nearestBeacon.getMajor(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Route.this, String.valueOf(nearestBeacon.getMajor()), Toast.LENGTH_LONG).show();
                     if (nearestBeacon.getMajor() == Integer.parseInt(es.get(0).getMajor())) {
                         if (marker == 0) {
                             Toast.makeText(Route.this, "What the Fuck", Toast.LENGTH_SHORT).show();
@@ -199,7 +204,7 @@ public class Route extends AppCompatActivity {
                                 }
                             });
 
-                            tts.speak("Test Test",TextToSpeech.QUEUE_FLUSH, null);
+                            //tts.speak("Test Test",TextToSpeech.QUEUE_FLUSH, null);
                             marker++;
                         }
                     }
