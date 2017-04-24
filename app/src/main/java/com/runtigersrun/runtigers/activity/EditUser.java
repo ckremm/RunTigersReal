@@ -84,7 +84,6 @@ public class EditUser extends AppCompatActivity {
                         URLEncoder.encode("LastName","UTF-8")+"="+URLEncoder.encode(ln,"UTF-8") + "&" +
                         URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(un,"UTF-8") + "&" +
                         URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8");
-
                 bw.write(data_string);
                 bw.flush();
                 bw.close();
