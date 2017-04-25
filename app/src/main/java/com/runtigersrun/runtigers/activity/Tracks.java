@@ -117,7 +117,7 @@ public class Tracks extends AppCompatActivity {
                         }
                         else if (which == 1){
                             Intent leaderboarintent = new Intent(Tracks.this, Leaderboards.class);
-                            leaderboarintent.putExtra("trackID",Integer.toString(t.getTrackID()));
+                            leaderboarintent.putExtra("trackID",t.getTrackID());
                             leaderboarintent.putExtra("Json_data", j_stringLB);
                             Tracks.this.startActivity((leaderboarintent));
                         }

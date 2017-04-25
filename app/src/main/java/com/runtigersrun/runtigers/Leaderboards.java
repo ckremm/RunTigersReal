@@ -29,7 +29,7 @@ public class Leaderboards extends AppCompatActivity {
     String JSON_STRING;
     String j_string;
     String jdata;
-    String currentTrack;
+    int currentTrack;
     JSONObject jobj;
     JSONArray jarray;
     LeaderboardAdapter la;
@@ -49,22 +49,23 @@ public class Leaderboards extends AppCompatActivity {
         lv.setAdapter(la);
 
         jdata = getIntent().getExtras().getString("Json_data");
-        currentTrack = getIntent().getExtras().getString("trackID");
+        currentTrack = getIntent().getExtras().getInt("trackID");
 
 
         try {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("times_response");
             int c = 0;
-            String TrackID, Time, userID;
+            String Time, userID;
+            int TrackID;
             while(c < jarray.length()) {
                 JSONObject jo = jarray.getJSONObject(c);
-                TrackID = jo.getString("trackID");
+                TrackID = Integer.parseInt(jo.getString("trackID"));
                 Time = jo.getString("Time");
                 userID = jo.getString("userID");
-                LeaderboardProperties lp = new LeaderboardProperties(TrackID, Time, userID);
+                LeaderboardProperties lp = new LeaderboardProperties(Time, TrackID,  userID);
 
-                if (TrackID.equals(currentTrack)){
+                if (TrackID == currentTrack){
                     leaders.add(lp);
                     la.add(lp);
                 }
