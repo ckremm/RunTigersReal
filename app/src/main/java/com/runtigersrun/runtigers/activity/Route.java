@@ -226,7 +226,7 @@ public class Route extends AppCompatActivity {
                     });
 
                 }
-                else if(val.equals(f.getMajor())){
+                /*else if(val.equals(f.getMajor())){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
 
@@ -244,13 +244,13 @@ public class Route extends AppCompatActivity {
                         }
                     });
 
-                }
+                }*/
 
             }
 
             @Override
             public void onExitedRegion(Region region) {
-                //Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
+                Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
             }
         });
 
