@@ -10,6 +10,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -91,6 +92,10 @@ public class Route extends AppCompatActivity {
                 //UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
         Button b =(Button) findViewById(R.id.startButton);
+
+        // keep screen on
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
         // Timer
         timerTextView = (TextView) findViewById(R.id.timerTextView);
