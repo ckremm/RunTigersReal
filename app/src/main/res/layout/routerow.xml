@@ -2,21 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="75dp">
 
-    <TextView
-        android:layout_height="match_parent"
-        android:layout_width="150dp"
-        android:id="@+id/num"
-        android:layout_alignParentLeft="true"
-        android:text="#"
-        android:gravity="center"
-        android:textAppearance="?android:textAppearanceLarge"
-        />
 
     <TextView
         android:layout_height="match_parent"
         android:layout_width="150dp"
         android:id="@+id/call"
-        android:layout_toRightOf="@+id/num"
+        android:layout_alignParentLeft="true"
         android:text="Checkpoint"
         android:gravity="center"
         android:textAppearance="?android:textAppearanceLarge"

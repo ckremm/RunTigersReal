@@ -52,7 +52,7 @@ public class RouteAdapter extends ArrayAdapter{
             row = li.inflate(R.layout.routerow, parent, false);
             rh = new RouteAdapter.RouteHolder();
             rh.call = (TextView) row.findViewById(R.id.call);
-            rh.num = (TextView) row.findViewById(R.id.num);
+            //rh.num = (TextView) row.findViewById(R.id.num);
             row.setTag(rh);
         }else{
             rh = (RouteAdapter.RouteHolder) row.getTag();
