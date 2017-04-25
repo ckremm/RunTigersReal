@@ -22,8 +22,8 @@ import java.net.URLEncoder;
 
 public class EditUser extends AppCompatActivity {
 
-    EditText first, last, username, password;
-    String oldun, fi, la, un, pass;
+    EditText first, last, username, password, friend1, friend2, friend3;
+    String oldun, fi, la, un, pass, f1, f2, f3;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,9 @@ public class EditUser extends AppCompatActivity {
         last = (EditText)findViewById(R.id.regEditLName);
         username = (EditText)findViewById(R.id.regEditUser);
         password = (EditText)findViewById(R.id.regEditPass);
+        friend1 = (EditText)findViewById(R.id.edFriend1);
+        friend2 = (EditText)findViewById(R.id.edFriend2);
+        friend3 = (EditText)findViewById(R.id.edFriend3);
 
         first.setText(MainActivity.currentUser.getFname());
         last.setText(MainActivity.currentUser.getLname());
@@ -46,9 +49,12 @@ public class EditUser extends AppCompatActivity {
         la = last.getText().toString();
         un = username.getText().toString();
         pass = password.getText().toString();
+        f1 = friend1.getText().toString();
+        f2 = friend2.getText().toString();
+        f3 = friend3.getText().toString();
 
         BackgroundEditUser editUser = new BackgroundEditUser();
-        editUser.execute(MainActivity.currentUser.getUname(), fi,la,un,pass);
+        editUser.execute(MainActivity.currentUser.getUname(), fi,la,un,pass,f1,f2,f3);
         finish();
 
         Intent maIntent = new Intent(this, MainActivity.class);
@@ -65,12 +71,16 @@ public class EditUser extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... args) {
-            String oldun, fn,ln,un,pass;
+            String oldun, fn,ln,un,pass,f1,f2,f3;
             oldun=args[0];
             fn=args[1];
             ln=args[2];
             un=args[3];
             pass = args[4];
+            f1= args[5];
+            f2= args[6];
+            f3= args[7];
+
             try{
                 URL url = new URL(add_user_url);
                 HttpURLConnection huc = (HttpURLConnection) url.openConnection();
@@ -83,7 +93,10 @@ public class EditUser extends AppCompatActivity {
                         URLEncoder.encode("FirstName","UTF-8")+"="+URLEncoder.encode(fn,"UTF-8") + "&" +
                         URLEncoder.encode("LastName","UTF-8")+"="+URLEncoder.encode(ln,"UTF-8") + "&" +
                         URLEncoder.encode("Username","UTF-8")+"="+URLEncoder.encode(un,"UTF-8") + "&" +
-                        URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8");
+                        URLEncoder.encode("Password","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8")+ "&" +
+                                URLEncoder.encode("Friend1","UTF-8")+"="+URLEncoder.encode(f1,"UTF-8")+ "&" +
+                                URLEncoder.encode("Friend2","UTF-8")+"="+URLEncoder.encode(f2,"UTF-8")+ "&" +
+                                URLEncoder.encode("Friend3","UTF-8")+"="+URLEncoder.encode(f3,"UTF-8");
                 bw.write(data_string);
                 bw.flush();
                 bw.close();
