@@ -34,6 +34,11 @@ public class TrackEditor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_editor);
 
+        es = new ArrayList<>();
+        spinnerArray = new ArrayList<>();
+        jdata = getIntent().getExtras().getString("Json_data");
+
+
         try {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("estimote_response");
@@ -47,6 +52,7 @@ public class TrackEditor extends AppCompatActivity {
                 Callsign = jo.getString("CallSign");
                 Estimote e = new Estimote(UUID, Major, Minor, Callsign);
 
+                spinnerArray.add(Callsign);
                 es.add(e);
 
                 c++;

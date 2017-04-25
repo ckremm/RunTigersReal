@@ -58,6 +58,9 @@ public class Route extends AppCompatActivity {
     Beacon nearestBeacon;
     String prevBeacon = "Empty";
     static long timeExport = 0;
+    int count = 0;
+    int count2 = 0;
+    int count3 = 0;
 
     boolean isRunning = false;
 
@@ -215,9 +218,7 @@ public class Route extends AppCompatActivity {
                     Estimote ch = null;
                     Estimote f = null;
                     String eval = String.valueOf(es.size());
-                    int count = 0;
-                    int count2 = 0;
-                    int count3 = 0;
+
 
                     for (Estimote E : es) {
                         if (E.getCallsign().equals(start)) {
@@ -230,8 +231,7 @@ public class Route extends AppCompatActivity {
                     }
 
                     if (val.equals(e1.getMajor()) && count == 0) {
-                        Toast.makeText(Route.this, "Found " + e1.getCallsign(), Toast.LENGTH_LONG).show();
-                        count++;
+
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
@@ -239,6 +239,8 @@ public class Route extends AppCompatActivity {
                                     if(prevBeacon.equals(e1.getMajor())){
 
                                     }else {
+                                        Toast.makeText(Route.this, "Found " + e1.getCallsign(), Toast.LENGTH_LONG).show();
+                                        count++;
                                         int result = tts.setLanguage(Locale.US);
                                         if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                                             Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
@@ -252,8 +254,7 @@ public class Route extends AppCompatActivity {
 
                         //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
                     }else if (val.equals(e2.getMajor()) && count2 == 0) {
-                        Toast.makeText(Route.this, "Found " + e2.getCallsign(), Toast.LENGTH_LONG).show();
-                        count2++;
+
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
@@ -261,6 +262,8 @@ public class Route extends AppCompatActivity {
                                     if(prevBeacon.equals(e2.getMajor())){
 
                                     }else {
+                                        Toast.makeText(Route.this, "Found " + e2.getCallsign(), Toast.LENGTH_LONG).show();
+                                        count2++;
                                         int result = tts.setLanguage(Locale.US);
                                         if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                                             Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
@@ -273,8 +276,7 @@ public class Route extends AppCompatActivity {
                         });
 
                     } else if(val.equals(e3.getMajor()) && count3 == 0){
-                        Toast.makeText(Route.this, "Found " + e3.getCallsign(), Toast.LENGTH_LONG).show();
-                        count3++;
+
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
@@ -282,6 +284,8 @@ public class Route extends AppCompatActivity {
                                     if(prevBeacon.equals(e3.getMajor())){
 
                                     }else {
+                                        Toast.makeText(Route.this, "Found " + e3.getCallsign(), Toast.LENGTH_LONG).show();
+                                        count3++;
                                         int result = tts.setLanguage(Locale.US);
                                         if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                                             Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
