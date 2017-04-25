@@ -302,22 +302,22 @@ public class Route extends AppCompatActivity {
 
                     for (Estimote E : es) {
                         if (E.getCallsign().equals(start)) {
-                            st = E;
+                            e1 = E;
                         } else if (E.getCallsign().equals(chp)) {
-                            ch = E;
+                            e2 = E;
                         } else if (E.getCallsign().equals(fin)) {
-                            f = E;
+                            e3 = E;
                         }
                     }
 
-                    if (val.equals(st.getMajor()) && count == 0) {
+                    if (val.equals(e1.getMajor()) && count == 0) {
                         Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
                         count++;
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
                                 if (status == TextToSpeech.SUCCESS) {
-                                    if(prevBeacon.equals(st.getMajor())){
+                                    if(prevBeacon.equals(e1.getMajor())){
 
                                     }else {
                                         int result = tts.setLanguage(Locale.US);
@@ -325,30 +325,35 @@ public class Route extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
                                         }
                                         tts.speak("Found Blueberry", TextToSpeech.QUEUE_FLUSH, null);
+                                        prevBeacon = e1.getMajor();
                                     }
                                 }
                             }
                         });
 
                         //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
-                    }else if (val.equals(ch.getMajor()) && count2 == 0) {
+                    }else if (val.equals(e2.getMajor()) && count2 == 0) {
                         Toast.makeText(Route.this, "Found Ice", Toast.LENGTH_LONG).show();
                         count2++;
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
                                 if (status == TextToSpeech.SUCCESS) {
-                                    int result = tts.setLanguage(Locale.US);
-                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
-                                    }
-                                    tts.speak("Found Ice", TextToSpeech.QUEUE_FLUSH, null);
+                                    if(prevBeacon.equals(e2.getMajor())){
 
+                                    }else {
+                                        int result = tts.setLanguage(Locale.US);
+                                        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                            Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                        }
+                                        tts.speak("Found Ice", TextToSpeech.QUEUE_FLUSH, null);
+                                        prevBeacon = e2.getMajor();
+                                    }
                                 }
                             }
                         });
 
-                    } else if(val.equals(f.getMajor()) && count3 == 0){
+                    } else if(val.equals(e3.getMajor()) && count3 == 0){
                         Toast.makeText(Route.this, "Found Mint" +
                                 "", Toast.LENGTH_LONG).show();
                         count3++;
@@ -356,15 +361,19 @@ public class Route extends AppCompatActivity {
                             @Override
                             public void onInit(int status) {
                                 if (status == TextToSpeech.SUCCESS) {
-                                    int result = tts.setLanguage(Locale.US);
-                                    if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
-                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    if(prevBeacon.equals(e3.getMajor())){
+
+                                    }else {
+                                        int result = tts.setLanguage(Locale.US);
+                                        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                            Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                        }
+                                        tts.speak("Found Mint", TextToSpeech.QUEUE_FLUSH, null);
+
+                                        timerHandler.removeCallbacks(timerRunnable);
+                                        // uhhhhh something something put in database
+                                        prevBeacon = e3.getMajor();
                                     }
-                                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null);
-
-                                    timerHandler.removeCallbacks(timerRunnable);
-                                    // uhhhhh something something put in database
-
                                 }
                             }
                         });
