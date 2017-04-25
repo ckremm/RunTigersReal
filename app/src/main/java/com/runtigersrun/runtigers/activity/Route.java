@@ -230,6 +230,7 @@ public class Route extends AppCompatActivity {
                         });
 
                     }
+
                 else if(val.equals(f.getMajor())){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
