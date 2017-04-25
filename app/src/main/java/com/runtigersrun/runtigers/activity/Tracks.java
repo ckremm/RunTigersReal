@@ -37,6 +37,7 @@ public class Tracks extends AppCompatActivity {
 
     String JSON_STRING;
     String j_string;
+    String j_stringLB;
     String jdata;
     JSONObject jobj;
     JSONArray jarray;
@@ -52,6 +53,7 @@ public class Tracks extends AppCompatActivity {
         setContentView(R.layout.activity_tracks);
         lv = (ListView) findViewById(R.id.trackListView);
 
+        new backgroundtaskLB().execute();
         new backgroundtask().execute();
         tracks = new ArrayList<TrackProperties>();
         ta = new TrackAdapter(this, R.layout.trackrow);
@@ -60,6 +62,7 @@ public class Tracks extends AppCompatActivity {
         jdata = getIntent().getExtras().getString("Json_data");
 
         //Toast.makeText()
+
 
         try {
             jobj = new JSONObject(jdata);
@@ -113,6 +116,7 @@ public class Tracks extends AppCompatActivity {
                         else if (which == 1){
                             Intent leaderboarintent = new Intent(Tracks.this, Leaderboards.class);
                             leaderboarintent.putExtra("TrackName",t.getName());
+                            leaderboarintent.putExtra("Json_data", j_stringLB);
                             Tracks.this.startActivity((leaderboarintent));
                         }
                     }
@@ -187,6 +191,52 @@ public class Tracks extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             j_string = result;
+        }
+    }
+    class backgroundtaskLB extends AsyncTask<Void, Void, String> {
+        String json_url;
+        String json_urlUser;
+
+        @Override
+        protected void onPreExecute() {
+            json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displayTimes.php";
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(json_url);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                InputStream is = huc.getInputStream();
+                BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                while ((JSON_STRING = bf.readLine()) != null) {
+                    sb.append(JSON_STRING + "\n");
+                }
+
+                bf.close();
+                is.close();
+                huc.disconnect();
+
+                return sb.toString().trim();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            j_stringLB = result;
         }
     }
 }

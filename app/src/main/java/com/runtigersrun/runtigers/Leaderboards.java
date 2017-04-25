@@ -43,16 +43,15 @@ public class Leaderboards extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.leaderListView);
 
-        new backgroundtask().execute();
         leaders = new ArrayList<LeaderboardProperties>();
         la = new LeaderboardAdapter(this, R.layout.leaderboardrow);
         lv.setAdapter(la);
 
-        //jdata = getIntent().getExtras().getString("Json_data");
+        jdata = getIntent().getExtras().getString("Json_data");
 
         try {
             jobj = new JSONObject(jdata);
-            jarray = jobj.getJSONArray("track_response");
+            jarray = jobj.getJSONArray("times_response");
             int c = 0;
             String TrackID, Time, userID;
             while(c < jarray.length()) {
@@ -72,50 +71,4 @@ public class Leaderboards extends AppCompatActivity {
         }
     }
 
-    class backgroundtask extends AsyncTask<Void, Void, String> {
-        String json_url;
-        String json_urlUser;
-
-        @Override
-        protected void onPreExecute() {
-            json_url = " https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/displayTimes.php";
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                URL url = new URL(json_url);
-                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-                InputStream is = huc.getInputStream();
-                BufferedReader bf = new BufferedReader(new InputStreamReader(is));
-                StringBuilder sb = new StringBuilder();
-                while ((JSON_STRING = bf.readLine()) != null) {
-                    sb.append(JSON_STRING + "\n");
-                }
-
-                bf.close();
-                is.close();
-                huc.disconnect();
-
-                return sb.toString().trim();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            j_string = result;
-        }
-    }
 }
