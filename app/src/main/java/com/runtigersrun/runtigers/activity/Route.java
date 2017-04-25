@@ -57,6 +57,7 @@ public class Route extends AppCompatActivity {
     TextToSpeech tts;
     Beacon nearestBeacon;
     String prevBeacon = "Empty";
+    static long timeExport = 0;
 
     boolean isRunning = false;
 
@@ -72,6 +73,7 @@ public class Route extends AppCompatActivity {
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
                 int mill = (int) (millis % 1000);
+                timeExport = millis;
 
                 timerTextView.setText(String.format("%d:%02d.%03d", minutes, seconds, mill));
 
@@ -253,6 +255,8 @@ public class Route extends AppCompatActivity {
 
                                     timerHandler.removeCallbacks(timerRunnable);
                                     // uhhhhh something something put in database
+                                    // use variable timeExport
+
                                 }
                             }
                         });
@@ -360,6 +364,7 @@ public class Route extends AppCompatActivity {
 
                                     timerHandler.removeCallbacks(timerRunnable);
                                     // uhhhhh something something put in database
+
                                 }
                             }
                         });
