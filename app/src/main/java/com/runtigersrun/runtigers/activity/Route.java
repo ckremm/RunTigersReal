@@ -57,21 +57,28 @@ public class Route extends AppCompatActivity {
     Beacon nearestBeacon;
     int prevBeacon = -1;
 
+    boolean isRunning = false;
 
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-            int mill = (int) (millis % 1000) ;
+            try {
+                isRunning = true;
+                long millis = System.currentTimeMillis() - startTime;
+                int seconds = (int) (millis / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                int mill = (int) (millis % 1000);
 
-            timerTextView.setText(String.format("%d:%02d.%03d", minutes, seconds, mill));
+                timerTextView.setText(String.format("%d:%02d.%03d", minutes, seconds, mill));
 
-            timerHandler.postDelayed(this, 500);
+                timerHandler.postDelayed(this, 500);
+            }
+            catch (Exception e) {
+                isRunning = false;
+            }
         }
     };
 
@@ -254,7 +261,7 @@ public class Route extends AppCompatActivity {
         }
 
         //PUT WHILE HERE
-        while (b.getText().toString().equals("stop"));
+        while (isRunning);
 
         /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
