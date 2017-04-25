@@ -68,16 +68,18 @@ public class Tracks extends AppCompatActivity {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("track_response");
             int c = 0;
-            String TrackID, TrackName, typeID, Start, Checkpoint, Finish;
+            String TrackName, typeID, Start, Checkpoint, Finish;
+            int TrackID;
             while(c < jarray.length()) {
                 JSONObject jo = jarray.getJSONObject(c);
-                TrackID = jo.getString("trackID");
+                TrackID = Integer.parseInt(jo.getString("trackID"));
                 TrackName = jo.getString("TrackName");
                 typeID = jo.getString("typeID");
                 Start = jo.getString("StartEstimote");
                 Checkpoint = jo.getString("CheckpointEstimote");
                 Finish = jo.getString("FinishEstimote");
-                TrackProperties tp = new TrackProperties(TrackName, Start, Checkpoint, Finish);
+
+                TrackProperties tp = new TrackProperties(TrackName, Start, Checkpoint, Finish, TrackID);
 
                 tracks.add(tp);
                 ta.add(tp);
@@ -115,7 +117,7 @@ public class Tracks extends AppCompatActivity {
                         }
                         else if (which == 1){
                             Intent leaderboarintent = new Intent(Tracks.this, Leaderboards.class);
-                            leaderboarintent.putExtra("TrackName",t.getName());
+                            leaderboarintent.putExtra("trackID",Integer.toString(t.getTrackID()));
                             leaderboarintent.putExtra("Json_data", j_stringLB);
                             Tracks.this.startActivity((leaderboarintent));
                         }

@@ -7,8 +7,9 @@ package com.runtigersrun.runtigers.model;
 public class TrackProperties {
 
     private String name, start, checkpoint, finish;
+    private int trackID;
 
-    public TrackProperties(String name, String start, String checkpoint, String finish){
+    public TrackProperties(String name, String start, String checkpoint, String finish, int ID){
         this.setName(name);
         this.setStart(start);
         this.setCheckpoint(checkpoint);
@@ -45,5 +46,13 @@ public class TrackProperties {
 
     public void setFinish(String finish) {
         this.finish = finish;
+    }
+
+    public void setTrackID(int trackID) {
+        this.trackID = trackID;
+    }
+
+    public int getTrackID() {
+        return trackID;
     }
 }

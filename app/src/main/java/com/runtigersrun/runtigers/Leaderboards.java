@@ -29,6 +29,7 @@ public class Leaderboards extends AppCompatActivity {
     String JSON_STRING;
     String j_string;
     String jdata;
+    String currentTrack;
     JSONObject jobj;
     JSONArray jarray;
     LeaderboardAdapter la;
@@ -48,6 +49,8 @@ public class Leaderboards extends AppCompatActivity {
         lv.setAdapter(la);
 
         jdata = getIntent().getExtras().getString("Json_data");
+        currentTrack = getIntent().getExtras().getString("trackID");
+
 
         try {
             jobj = new JSONObject(jdata);
@@ -61,8 +64,10 @@ public class Leaderboards extends AppCompatActivity {
                 userID = jo.getString("userID");
                 LeaderboardProperties lp = new LeaderboardProperties(TrackID, Time, userID);
 
-                leaders.add(lp);
-                la.add(lp);
+                if (TrackID.equals(currentTrack)){
+                    leaders.add(lp);
+                    la.add(lp);
+                }
 
                 c++;
             }
