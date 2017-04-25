@@ -157,7 +157,6 @@ public class Route extends AppCompatActivity {
 
 
         do {
-
             //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
             beaconManager = new BeaconManager(getApplicationContext());
 
