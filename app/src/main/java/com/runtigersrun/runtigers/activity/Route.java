@@ -75,6 +75,8 @@ public class Route extends AppCompatActivity {
         }
     };
 
+    Button b =(Button) findViewById(R.id.startButton);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,12 +88,11 @@ public class Route extends AppCompatActivity {
 
         // Timer
         timerTextView = (TextView) findViewById(R.id.timerTextView);
-        Button b =(Button) findViewById(R.id.startButton);
         b.setText("start");
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int c = 0;
+                monitor();
                 Button b = (Button) v;
                 if (b.getText().equals("stop")) {
                     timerHandler.removeCallbacks(timerRunnable);
@@ -100,10 +101,6 @@ public class Route extends AppCompatActivity {
                     startTime = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
                     b.setText("stop");
-                    while(c < 3){
-                        monitor(c);
-                        c++;
-                    }
                 }
             }
         });
@@ -156,76 +153,77 @@ public class Route extends AppCompatActivity {
         b.setText("start");
     }
 
-    public void monitor(int c){
+    public void monitor(){
 
-        //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
-        beaconManager = new BeaconManager(getApplicationContext());
 
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-            @Override
-            public void onServiceReady() {
-                beaconManager.startMonitoring(region);
+        do {
+            //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
+            beaconManager = new BeaconManager(getApplicationContext());
 
-            }
-        });
+            beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+                @Override
+                public void onServiceReady() {
+                    beaconManager.startMonitoring(region);
 
-        beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
+                }
+            });
 
-            @Override
-            public void onEnteredRegion(Region region, List<Beacon> list) {
-                String val = String.valueOf(list.get(0).getMajor());
-                Estimote st = null;
-                Estimote ch = null;
-                Estimote f = null;
-                String eval = String.valueOf(es.size());
+            beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
 
-                for(Estimote E: es){
-                    if(E.getCallsign().equals(start)){
-                        st = E;
-                    }else if(E.getCallsign().equals(chp)){
-                        ch = E;
-                    }else if(E.getCallsign().equals(fin)){
-                        f = E;
+                @Override
+                public void onEnteredRegion(Region region, List<Beacon> list) {
+                    String val = String.valueOf(list.get(0).getMajor());
+                    Estimote st = null;
+                    Estimote ch = null;
+                    Estimote f = null;
+                    String eval = String.valueOf(es.size());
+
+                    for (Estimote E : es) {
+                        if (E.getCallsign().equals(start)) {
+                            st = E;
+                        } else if (E.getCallsign().equals(chp)) {
+                            ch = E;
+                        } else if (E.getCallsign().equals(fin)) {
+                            f = E;
+                        }
                     }
-                }
 
-                if(val.equals(st.getMajor())){
-                    Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
+                    if (val.equals(st.getMajor())) {
+                        Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
 
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        @Override
-                        public void onInit(int status) {
-                            if (status == TextToSpeech.SUCCESS) {
-                                int result = tts.setLanguage(Locale.US);
-                                if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
-                                    Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Blueberry", TextToSpeech.QUEUE_FLUSH, null);
+
                                 }
-                                tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null);
-
                             }
-                        }
-                    });
+                        });
 
-                    //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
-                }
-                else if(val.equals(ch.getMajor())){
-                    Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
+                        //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
+                    } else if (val.equals(ch.getMajor())) {
+                        Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
 
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        @Override
-                        public void onInit(int status) {
-                            if (status == TextToSpeech.SUCCESS) {
-                                int result = tts.setLanguage(Locale.US);
-                                if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
-                                    Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Mint", TextToSpeech.QUEUE_FLUSH, null);
+
                                 }
-                                tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null);
-
                             }
-                        }
-                    });
+                        });
 
-                }
+                    }
                 /*else if(val.equals(f.getMajor())){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
@@ -246,15 +244,17 @@ public class Route extends AppCompatActivity {
 
                 }*/
 
-            }
+                }
 
-            @Override
-            public void onExitedRegion(Region region) {
-                Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onExitedRegion(Region region) {
+                    Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
         //PUT WHILE HERE
+        while (b.getText().toString().equals("stop"));
 
         /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
