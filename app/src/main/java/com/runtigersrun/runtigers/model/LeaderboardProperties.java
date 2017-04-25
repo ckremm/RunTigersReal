@@ -5,12 +5,12 @@ package com.runtigersrun.runtigers.model;
  */
 
 public class LeaderboardProperties {
-    private String Time, userID, trackID;
+    private String Time, username, trackID;
 
-    public LeaderboardProperties(String Time, String trackID, String userID){
+    public LeaderboardProperties(String Time, String trackID, String username){
         this.Time = Time;
         this.trackID = trackID;
-        this.userID = userID;
+        this.username = username;
     }
 
     public String getTime() {
@@ -22,11 +22,11 @@ public class LeaderboardProperties {
     }
 
     public String getUserID() {
-        return userID;
+        return username;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUserID(String username) {
+        this.username = username;
     }
 
     public void setTrackID(String trackID) {
