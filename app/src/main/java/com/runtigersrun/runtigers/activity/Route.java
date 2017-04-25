@@ -287,6 +287,9 @@ public class Route extends AppCompatActivity {
                     Estimote ch = null;
                     Estimote f = null;
                     String eval = String.valueOf(es.size());
+                    int count = 0;
+                    int count2 = 0;
+                    int count3 = 0;
 
                     for (Estimote E : es) {
                         if (E.getCallsign().equals(start)) {
@@ -298,7 +301,7 @@ public class Route extends AppCompatActivity {
                         }
                     }
 
-                    if (val.equals(st.getMajor())) {
+                    if (val.equals(st.getMajor()) && count == 0) {
                         Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
 
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {

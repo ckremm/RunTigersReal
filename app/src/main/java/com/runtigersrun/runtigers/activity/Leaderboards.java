@@ -1,10 +1,11 @@
-package com.runtigersrun.runtigers;
+package com.runtigersrun.runtigers.activity;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.activity.MainActivity;
 import com.runtigersrun.runtigers.activity.Tracks;
 import com.runtigersrun.runtigers.control.LeaderboardAdapter;

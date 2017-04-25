@@ -1,6 +1,5 @@
 package com.runtigersrun.runtigers.activity;
 
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,9 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.runtigersrun.runtigers.Leaderboards;
 import com.runtigersrun.runtigers.R;
 import com.runtigersrun.runtigers.control.TrackAdapter;
 import com.runtigersrun.runtigers.TrackEditor;

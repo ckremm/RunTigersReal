@@ -28,7 +28,7 @@
         <activity android:name=".Groups" />
         <activity android:name=".GroupEditor" />
         <activity android:name=".activity.Route"></activity>
-        <activity android:name=".Leaderboards"/>
+        <activity android:name=".activity.Leaderboards"/>
     </application>
 
 </manifest>
