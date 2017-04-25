@@ -82,7 +82,6 @@ public class Route extends AppCompatActivity {
         }
     };
 
-    Button b =(Button) findViewById(R.id.startButton);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +91,7 @@ public class Route extends AppCompatActivity {
         region = new Region("ranged region",
                 UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
+        Button b = (Button) findViewById(R.id.startButton);
 
         // Timer
         timerTextView = (TextView) findViewById(R.id.timerTextView);
@@ -163,17 +163,18 @@ public class Route extends AppCompatActivity {
     public void monitor(){
 
 
+        //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
+        beaconManager = new BeaconManager(getApplicationContext());
+
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+            @Override
+            public void onServiceReady() {
+                beaconManager.startMonitoring(region);
+
+            }
+        });
+
         do {
-            //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
-            beaconManager = new BeaconManager(getApplicationContext());
-
-            beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-                @Override
-                public void onServiceReady() {
-                    beaconManager.startMonitoring(region);
-
-                }
-            });
 
             beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
 
@@ -230,26 +231,25 @@ public class Route extends AppCompatActivity {
                             }
                         });
 
-                    }
-                /*else if(val.equals(f.getMajor())){
-                    Toast.makeText(Route.this, "Found Ice" +
+                    } else if(val.equals(f.getMajor())){
+                        Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
 
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        @Override
-                        public void onInit(int status) {
-                            if (status == TextToSpeech.SUCCESS) {
-                                int result = tts.setLanguage(Locale.US);
-                                if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
-                                    Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
+
                                 }
-                                tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
-
                             }
-                        }
-                    });
+                        });
 
-                }*/
+                    }
 
                 }
 
@@ -259,11 +259,10 @@ public class Route extends AppCompatActivity {
                 }
             });
         }
-
         //PUT WHILE HERE
         while (isRunning);
 
-        /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
+        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 Toast.makeText(Route.this, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
@@ -290,7 +289,8 @@ public class Route extends AppCompatActivity {
                     }
                 }
             }
-        });*/
+        });
+
     }
 
     public void showNotification(String title, String message) {
