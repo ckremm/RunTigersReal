@@ -303,7 +303,7 @@ public class Route extends AppCompatActivity {
 
                     if (val.equals(st.getMajor()) && count == 0) {
                         Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
-
+                        count++;
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
@@ -319,9 +319,9 @@ public class Route extends AppCompatActivity {
                         });
 
                         //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
-                    }else if (val.equals(ch.getMajor())) {
+                    }else if (val.equals(ch.getMajor()) && count2 == 0) {
                         Toast.makeText(Route.this, "Found Ice", Toast.LENGTH_LONG).show();
-
+                        count2++;
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
@@ -336,10 +336,10 @@ public class Route extends AppCompatActivity {
                             }
                         });
 
-                    } else if(val.equals(f.getMajor())){
+                    } else if(val.equals(f.getMajor()) && count3 == 0){
                         Toast.makeText(Route.this, "Found Mint" +
                                 "", Toast.LENGTH_LONG).show();
-
+                        count3++;
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
                             public void onInit(int status) {
