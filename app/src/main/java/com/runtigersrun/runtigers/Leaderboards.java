@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.runtigersrun.runtigers.activity.Tracks;
 import com.runtigersrun.runtigers.control.LeaderboardAdapter;
+import com.runtigersrun.runtigers.control.TrackAdapter;
 import com.runtigersrun.runtigers.model.LeaderboardProperties;
+import com.runtigersrun.runtigers.model.TrackProperties;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +40,15 @@ public class Leaderboards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
+
+        lv = (ListView) findViewById(R.id.leaderListView);
+
+        new backgroundtask().execute();
+        leaders = new ArrayList<LeaderboardProperties>();
+        la = new LeaderboardAdapter(this, R.layout.leaderboardrow);
+        lv.setAdapter(la);
+
+        //jdata = getIntent().getExtras().getString("Json_data");
 
         try {
             jobj = new JSONObject(jdata);
