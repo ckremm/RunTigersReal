@@ -339,7 +339,7 @@ public class Route extends AppCompatActivity {
 
     public void pushTime(){
         long time = timeExport;
-        String trackID = ""; // THIS NEEDS TO CHANGE. HOW DO I GET THE CURRENT TRACKID?
+        String trackID = id;
 
         BackgroundAddTime addUser = new BackgroundAddTime();
         addUser.execute(MainActivity.currentUser.getUserID(), trackID, Long.toString(time));
