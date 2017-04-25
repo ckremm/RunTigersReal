@@ -32,11 +32,12 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_centerVertical="true"
+        android:layout_height="300dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/trackListView" />
+        android:id="@+id/trackListView"
+        android:layout_above="@+id/buttonEditTrack"
+        android:layout_below="@+id/tname" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -46,4 +47,25 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/imageView" />
+    <TextView
+        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:id="@+id/tname"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView"
+        android:text="Tracks"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        />
+
+    <TextView
+        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:id="@+id/startp"
+        android:layout_toRightOf="@id/tname"
+        android:layout_below="@+id/imageView"
+        android:text="Starting Point"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        />
 </RelativeLayout>
