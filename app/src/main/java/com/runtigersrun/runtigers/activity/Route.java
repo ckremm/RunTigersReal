@@ -167,6 +167,9 @@ public class Route extends AppCompatActivity {
         });
 
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
+
+            int count = 0;
+
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 String val = String.valueOf(list.get(0).getMajor());
@@ -190,7 +193,7 @@ public class Route extends AppCompatActivity {
                 //Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
                 //beaconManager.startRanging(region);
 
-                if(val.equals(st.getMajor())){
+                if(val.equals(st.getMajor()) && count == 0){
                     Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
                     tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                         //@Override
@@ -202,7 +205,7 @@ public class Route extends AppCompatActivity {
                     });
                     tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null, "Test");
                 }
-                if(val.equals(ch.getMajor())){
+                if(val.equals(ch.getMajor()) && count == 1){
                     Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
                     tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                         //@Override
@@ -215,7 +218,7 @@ public class Route extends AppCompatActivity {
                     });
                     tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null, "Test2");
                 }
-                if(val.equals(f.getMajor())){
+                if(val.equals(f.getMajor()) && count == 2){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
                     tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -234,8 +237,8 @@ public class Route extends AppCompatActivity {
 
             @Override
             public void onExitedRegion(Region region) {
-                Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
+                count++;
             }
         });
 
