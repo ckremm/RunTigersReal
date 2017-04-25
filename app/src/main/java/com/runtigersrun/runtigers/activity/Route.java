@@ -295,6 +295,7 @@ public class Route extends AppCompatActivity {
                                         timerHandler.removeCallbacks(timerRunnable);
                                         // uhhhhh something something put in database
                                         prevBeacon = e3.getMajor();
+                                        pushTime();
                                     }
                                 }
                             }
@@ -322,5 +323,9 @@ public class Route extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notification);
+    }
+
+    public void pushTime(){
+        long time = timeExport;
     }
 }
