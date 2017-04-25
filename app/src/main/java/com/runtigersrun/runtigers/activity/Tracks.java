@@ -105,6 +105,7 @@ public class Tracks extends AppCompatActivity {
                         //Toast.makeText(Tracks.this, "%i"+ which, Toast.LENGTH_LONG).show();
                         if(which == 0){
                             Intent trackIntent = new Intent(Tracks.this, Route.class);
+                            trackIntent.putExtra("TrackID", t.getTrackID());
                             trackIntent.putExtra("Start", t.getStart());
                             trackIntent.putExtra("Checkpoint", t.getCheckpoint());
                             trackIntent.putExtra("Finish", t.getFinish());

@@ -56,6 +56,7 @@ public class Route extends AppCompatActivity {
     String start;
     String chp;
     String fin;
+    String id;
     Estimote e1;
     Estimote e2;
     Estimote e3;
@@ -139,6 +140,7 @@ public class Route extends AppCompatActivity {
         ra = new RouteAdapter(this, R.layout.routerow);
         lv.setAdapter(ra);
         jdata = getIntent().getExtras().getString("Json_data");
+        id = getIntent().getExtras().getString("TrackID");
         start = getIntent().getExtras().getString("Start");
         chp = getIntent().getExtras().getString("Checkpoint");
         fin = getIntent().getExtras().getString("Finish");
