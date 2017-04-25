@@ -317,7 +317,7 @@ public class Route extends AppCompatActivity {
 
                         //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
                     }else if (val.equals(ch.getMajor())) {
-                        Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Route.this, "Found Ice", Toast.LENGTH_LONG).show();
 
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                             @Override
@@ -327,14 +327,14 @@ public class Route extends AppCompatActivity {
                                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                                         Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
                                     }
-                                    tts.speak("Found Mint", TextToSpeech.QUEUE_FLUSH, null);
+                                    tts.speak("Found Ice", TextToSpeech.QUEUE_FLUSH, null);
 
                                 }
                             }
                         });
 
                     } else if(val.equals(f.getMajor())){
-                        Toast.makeText(Route.this, "Found Ice" +
+                        Toast.makeText(Route.this, "Found Mint" +
                                 "", Toast.LENGTH_LONG).show();
 
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -345,7 +345,7 @@ public class Route extends AppCompatActivity {
                                     if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
                                         Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
                                     }
-                                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
+                                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null);
 
                                     timerHandler.removeCallbacks(timerRunnable);
                                     // uhhhhh something something put in database
