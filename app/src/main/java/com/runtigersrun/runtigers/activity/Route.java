@@ -87,8 +87,8 @@ public class Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
         es = new ArrayList<>();
-        region = new Region("ranged region",
-                UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
+        //region = new Region("ranged region",
+                //UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
         Button b =(Button) findViewById(R.id.startButton);
 
@@ -161,12 +161,14 @@ public class Route extends AppCompatActivity {
 
     public void monitor(){
 
+        //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
+        beaconManager = new BeaconManager(getApplicationContext());
+
+        region = new Region("ranged region",
+                UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
 
-            //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
-            beaconManager = new BeaconManager(getApplicationContext());
-
-            beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
                 @Override
                 public void onServiceReady() {
                     beaconManager.startMonitoring(region);
@@ -177,6 +179,8 @@ public class Route extends AppCompatActivity {
             beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
                 @Override
                 public void onEnteredRegion(Region region, List<Beacon> list) {
+                    beaconManager.startRanging(region);
+                    /*
                     String val = String.valueOf(list.get(0).getMajor());
                     Estimote st = null;
                     Estimote ch = null;
@@ -228,32 +232,30 @@ public class Route extends AppCompatActivity {
                             }
                         });
 
-                    }
-
-                else if(val.equals(f.getMajor())){
+                    } else if(val.equals(f.getMajor())){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
 
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        @Override
-                        public void onInit(int status) {
-                            if (status == TextToSpeech.SUCCESS) {
-                                int result = tts.setLanguage(Locale.US);
-                                if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
-                                    Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
+
+                                    timerHandler.removeCallbacks(timerRunnable);
+                                    // uhhhhh something something put in database
                                 }
-                                tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
-
-                                timerHandler.removeCallbacks(timerRunnable);
-                                // uhhhhh something something put in database
                             }
-                        }
-                    });
+                        });
 
+                    }
+
+                }*/
                 }
-
-            }
-
                 @Override
                 public void onExitedRegion(Region region) {
                     Toast.makeText(Route.this, "Exiting...", Toast.LENGTH_LONG).show();
@@ -276,34 +278,85 @@ public class Route extends AppCompatActivity {
 
 
 
-        /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
+        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
-                Toast.makeText(Route.this, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
                 if (!list.isEmpty()) {
-                    nearestBeacon = list.get(0);
-                    Toast.makeText(Route.this, String.valueOf(nearestBeacon.getMajor()), Toast.LENGTH_LONG).show();
-                    if (nearestBeacon.getMajor() == Integer.parseInt(es.get(0).getMajor())) {
-                        if (marker == 0) {
-                            Toast.makeText(Route.this, "What the Fuck", Toast.LENGTH_SHORT).show();
-                            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                                //@Override
-                                public void onInit(int status) {
-                                    if (status != TextToSpeech.ERROR) {
-                                        tts.setLanguage(Locale.US);
+                    String val = String.valueOf(list.get(0).getMajor());
+                    Estimote st = null;
+                    Estimote ch = null;
+                    Estimote f = null;
+                    String eval = String.valueOf(es.size());
 
+                    for (Estimote E : es) {
+                        if (E.getCallsign().equals(start)) {
+                            st = E;
+                        } else if (E.getCallsign().equals(chp)) {
+                            ch = E;
+                        } else if (E.getCallsign().equals(fin)) {
+                            f = E;
+                        }
+                    }
+
+                    if (val.equals(st.getMajor())) {
+                        Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
+
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
                                     }
+                                    tts.speak("Found Blueberry", TextToSpeech.QUEUE_FLUSH, null);
 
                                 }
-                            });
+                            }
+                        });
 
-                            //tts.speak("Test Test",TextToSpeech.QUEUE_FLUSH, null);
-                            marker++;
-                        }
+                        //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
+                    }else if (val.equals(ch.getMajor())) {
+                        Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
+
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Mint", TextToSpeech.QUEUE_FLUSH, null);
+
+                                }
+                            }
+                        });
+
+                    } else if(val.equals(f.getMajor())){
+                        Toast.makeText(Route.this, "Found Ice" +
+                                "", Toast.LENGTH_LONG).show();
+
+                        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if (status == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.US);
+                                    if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
+                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                    }
+                                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
+
+                                    timerHandler.removeCallbacks(timerRunnable);
+                                    // uhhhhh something something put in database
+                                }
+                            }
+                        });
+
                     }
                 }
             }
-        });*/
+        });
     }
 
     public void showNotification(String title, String message) {
