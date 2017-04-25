@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,15 @@ import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -327,5 +337,69 @@ public class Route extends AppCompatActivity {
 
     public void pushTime(){
         long time = timeExport;
+        String trackID = ""; // THIS NEEDS TO CHANGE. HOW DO I GET THE CURRENT TRACKID?
+
+        BackgroundAddTime addUser = new BackgroundAddTime();
+        addUser.execute(MainActivity.currentUser.getUserID(), trackID, Long.toString(time));
+        finish();
+
     }
+
+    public class BackgroundAddTime extends AsyncTask<String,Void, String> {
+
+        String add_time_url;
+        @Override
+        protected void onPreExecute() {
+            add_time_url = "https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/addTime.php";
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            String userID, trackID, Time;
+            userID=args[0];
+            trackID=args[1];
+            Time=args[2];
+            try{
+                URL url = new URL(add_time_url);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                huc.setRequestMethod("POST");
+                huc.setDoOutput(true);
+                OutputStream os = huc.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                String data_string = URLEncoder.encode("userID","UTF-8")+"="+URLEncoder.encode(userID,"UTF-8") + "&" +
+                        URLEncoder.encode("trackID","UTF-8")+"="+URLEncoder.encode(trackID,"UTF-8") + "&" +
+                        URLEncoder.encode("Time","UTF-8")+"="+URLEncoder.encode(Time,"UTF-8");
+
+                bw.write(data_string);
+                bw.flush();
+                bw.close();
+                os.close();
+                InputStream is = huc.getInputStream();
+                is.close();
+                huc.disconnect();
+                return "Time Added";
+            }
+            catch(MalformedURLException e){
+                e.printStackTrace();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
 }
