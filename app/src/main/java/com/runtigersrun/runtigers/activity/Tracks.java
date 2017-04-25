@@ -68,11 +68,10 @@ public class Tracks extends AppCompatActivity {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("track_response");
             int c = 0;
-            String TrackName, typeID, Start, Checkpoint, Finish;
-            int TrackID;
+            String TrackName, typeID, Start, Checkpoint, Finish, TrackID;
             while(c < jarray.length()) {
                 JSONObject jo = jarray.getJSONObject(c);
-                TrackID = Integer.parseInt(jo.getString("trackID"));
+                TrackID = jo.getString("trackID");
                 TrackName = jo.getString("TrackName");
                 typeID = jo.getString("typeID");
                 Start = jo.getString("StartEstimote");

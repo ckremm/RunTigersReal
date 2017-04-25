@@ -6,14 +6,14 @@ package com.runtigersrun.runtigers.model;
 
 public class TrackProperties {
 
-    private String name, start, checkpoint, finish;
-    private int trackID;
+    private String name, start, checkpoint, finish, trackID;
 
-    public TrackProperties(String name, String start, String checkpoint, String finish, int ID){
+    public TrackProperties(String name, String start, String checkpoint, String finish, String ID){
         this.setName(name);
         this.setStart(start);
         this.setCheckpoint(checkpoint);
         this.setFinish(finish);
+        this.setTrackID(ID);
     }
 
     public String getName() {
@@ -48,11 +48,11 @@ public class TrackProperties {
         this.finish = finish;
     }
 
-    public void setTrackID(int trackID) {
+    public void setTrackID(String trackID) {
         this.trackID = trackID;
     }
 
-    public int getTrackID() {
+    public String getTrackID() {
         return trackID;
     }
 }
