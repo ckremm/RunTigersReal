@@ -61,10 +61,14 @@ public class TrackEditor extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Spinner spinner = new Spinner(this);
+        Spinner first = (Spinner) findViewById(R.id.fisrtWaypoint);
+        Spinner second = (Spinner) findViewById(R.id.secondWaypoint);
+        Spinner last = (Spinner) findViewById(R.id.lastWaypoint);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerArrayAdapter);
+        first.setAdapter(spinnerArrayAdapter);
+        second.setAdapter(spinnerArrayAdapter);
+        last.setAdapter(spinnerArrayAdapter);
 
         Button finished = (Button) findViewById(R.id.buttonTrackFinish);
 

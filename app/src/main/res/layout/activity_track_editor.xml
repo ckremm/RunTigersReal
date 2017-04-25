@@ -63,7 +63,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/fisrtWaypoint"
         android:layout_below="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_marginTop="22dp" />
@@ -71,16 +71,16 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/spinner"
+        android:layout_alignTop="@+id/fisrtWaypoint"
         android:layout_alignParentStart="true"
         android:layout_marginTop="47dp"
-        android:id="@+id/spinner2" />
+        android:id="@+id/secondWaypoint" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
-        android:id="@+id/spinner3"
-        android:layout_below="@+id/spinner2"
+        android:id="@+id/lastWaypoint"
+        android:layout_below="@+id/secondWaypoint"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
