@@ -254,7 +254,9 @@ public class Route extends AppCompatActivity {
             }
         });
 
-        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
+        //PUT WHILE HERE
+
+        /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 Toast.makeText(Route.this, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
@@ -281,7 +283,7 @@ public class Route extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
 
     public void showNotification(String title, String message) {
