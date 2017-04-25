@@ -41,7 +41,9 @@ public class EditUser extends AppCompatActivity {
         last.setText(MainActivity.currentUser.getLname());
         username.setText(MainActivity.currentUser.getUname());
         password.setText(MainActivity.currentUser.getPass());
-
+        friend1.setText(MainActivity.currentUser.getFriend1());
+        friend2.setText(MainActivity.currentUser.getFriend2());
+        friend3.setText(MainActivity.currentUser.getFriend3());
     }
 
     public void clickEdit(View view){

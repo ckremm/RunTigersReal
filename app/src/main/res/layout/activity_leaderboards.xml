@@ -43,8 +43,19 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@+id/Time"
         android:layout_centerHorizontal="true"
         android:id="@+id/leaderListView" />
+
+    <TextView
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:id="@+id/note"
+        android:layout_below="@id/leaderListView"
+        android:text="Note: *** indicates Friends"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textSize="18dp"
+        />
 </RelativeLayout>
