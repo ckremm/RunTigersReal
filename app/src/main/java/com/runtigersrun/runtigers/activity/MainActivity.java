@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("user_response");
             int c = 0;
-            String ID, FName, LName, Username, Pass;
+            String ID, FName, LName, Username, Pass, friend1, friend2, friend3;
             while(c < jarray.length()) {
                 JSONObject jo = jarray.getJSONObject(c);
                 ID = jo.getString("userID");
@@ -111,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
                 LName = jo.getString("LastName");
                 Username = jo.getString("Username");
                 Pass = jo.getString("Password");
-                User u = new User(FName, LName, Username, Pass, ID);
+                friend1 = jo.getString("Friend1");
+                friend2 = jo.getString("Friend2");
+                friend3 = jo.getString("Friend3");
+                User u = new User(FName, LName, Username, Pass, ID, friend1, friend2, friend3);
 
                 users.add(u);
                 c++;

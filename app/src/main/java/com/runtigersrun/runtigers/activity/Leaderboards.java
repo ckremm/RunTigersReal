@@ -60,13 +60,27 @@ public class Leaderboards extends AppCompatActivity {
             jobj = new JSONObject(jdata);
             jarray = jobj.getJSONArray("times_response");
             int c = 0;
-            String Time, userID, TrackID;
+            String Time, userID, TrackID, username;
             while(c < jarray.length()) {
                 JSONObject jo = jarray.getJSONObject(c);
                 TrackID = jo.getString("trackID");
                 Time = jo.getString("Time");
                 userID = jo.getString("userID");
-                LeaderboardProperties lp = new LeaderboardProperties(formatTime(Time), TrackID,  getUsername(userID));
+                username = getUsername(userID);
+                LeaderboardProperties lp;
+                if (MainActivity.currentUser.getFriend1().equals(username) ||
+                        MainActivity.currentUser.getFriend2().equals(username)||
+                        MainActivity.currentUser.getFriend3().equals(username)){
+                    lp = new LeaderboardProperties(formatTime(Time), TrackID,  username+"***");
+                }
+                else
+                {
+                    lp = new LeaderboardProperties(formatTime(Time), TrackID,  username);
+                }
+
+
+
+
 
                 if (TrackID.equals(currentTrack)){
                     leaders.add(lp);
