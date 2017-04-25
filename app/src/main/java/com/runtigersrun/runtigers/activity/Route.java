@@ -178,6 +178,15 @@ public class Route extends AppCompatActivity {
                 Estimote f = null;
                 String eval = String.valueOf(es.size());
 
+                tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+                    //@Override
+                    public void onInit(int status) {
+                        if (status != TextToSpeech.ERROR) {
+                            tts.setLanguage(Locale.US);
+                        }
+                    }
+                });
+
                 for(Estimote E: es){
                     if(E.getCallsign().equals(start)){
                         st = E;
@@ -195,42 +204,16 @@ public class Route extends AppCompatActivity {
 
                 if(val.equals(st.getMajor()) && count == 0){
                     Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        //@Override
-                        public void onInit(int status) {
-                            if (status != TextToSpeech.ERROR) {
-                                tts.setLanguage(Locale.US);
-                            }
-                        }
-                    });
-                    tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null, "Test");
+                    tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null);
                 }
                 if(val.equals(ch.getMajor()) && count == 1){
                     Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        //@Override
-                        public void onInit(int status) {
-                            if (status != TextToSpeech.ERROR) {
-                                tts.setLanguage(Locale.US);
-                            }
-
-                        }
-                    });
-                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null, "Test2");
+                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null);
                 }
                 if(val.equals(f.getMajor()) && count == 2){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
-                    tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                        //@Override
-                        public void onInit(int status) {
-                            if (status != TextToSpeech.ERROR) {
-                                tts.setLanguage(Locale.US);
-                            }
-
-                        }
-                    });
-                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null, "Test3");
+                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
                 }
 
             }
