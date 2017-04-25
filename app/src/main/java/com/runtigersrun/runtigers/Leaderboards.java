@@ -90,10 +90,12 @@ public class Leaderboards extends AppCompatActivity {
 
     private String formatTime(String time){
         int timeseconds = Integer.parseInt(time);
-        int millis = timeseconds;
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        String result = df.format(millis);
-        return result;
+        int hours = timeseconds / 3600;
+        int minutes = (timeseconds % 3600) / 60;
+        int seconds = timeseconds % 60;
+
+        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return timeString;
     }
 
 }
