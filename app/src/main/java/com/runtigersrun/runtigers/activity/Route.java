@@ -162,7 +162,7 @@ public class Route extends AppCompatActivity {
     public void monitor(){
 
 
-        do {
+
             //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
             beaconManager = new BeaconManager(getApplicationContext());
 
@@ -173,9 +173,8 @@ public class Route extends AppCompatActivity {
 
                 }
             });
-
+            do{
             beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
-
                 @Override
                 public void onEnteredRegion(Region region, List<Beacon> list) {
                     String val = String.valueOf(list.get(0).getMajor());
@@ -212,7 +211,7 @@ public class Route extends AppCompatActivity {
                         });
 
                         //tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
-                    } else if (val.equals(ch.getMajor())) {
+                    }else if (val.equals(ch.getMajor())) {
                         Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
 
                         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -253,7 +252,7 @@ public class Route extends AppCompatActivity {
 
                 }
 
-                }
+            }
 
                 @Override
                 public void onExitedRegion(Region region) {
@@ -273,10 +272,9 @@ public class Route extends AppCompatActivity {
                     });
                 }
             });
-        }
+        }while (isRunning);
 
-        //PUT WHILE HERE
-        while (isRunning);
+
 
         /*beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
