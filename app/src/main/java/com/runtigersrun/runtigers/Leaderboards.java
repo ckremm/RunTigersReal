@@ -90,7 +90,7 @@ public class Leaderboards extends AppCompatActivity {
 
     private String formatTime(String time){
         int timeseconds = Integer.parseInt(time);
-        int millis = timeseconds*1000;
+        int millis = timeseconds;
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
         String result = df.format(millis);
         return result;
