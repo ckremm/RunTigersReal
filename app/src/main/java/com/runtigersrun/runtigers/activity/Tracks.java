@@ -132,6 +132,7 @@ public class Tracks extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent editorIntent = new Intent(Tracks.this, TrackEditor.class);
+                editorIntent.putExtra("Json_data", j_string);
                 Tracks.this.startActivity(editorIntent);
             }
         });
