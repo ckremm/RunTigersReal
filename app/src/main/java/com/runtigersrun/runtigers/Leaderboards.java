@@ -81,7 +81,7 @@ public class Leaderboards extends AppCompatActivity {
 
     private String getUsername(String userID){
         for (User u : MainActivity.users){
-            if (u.getUserID().equals(userID)){
+            if (u.getUserID().trim().equals(userID.trim())){
                 return u.getUname();
             }
         }
