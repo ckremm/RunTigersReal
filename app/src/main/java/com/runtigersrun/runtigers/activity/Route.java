@@ -181,8 +181,11 @@ public class Route extends AppCompatActivity {
                 tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                     //@Override
                     public void onInit(int status) {
-                        if (status != TextToSpeech.ERROR) {
-                            tts.setLanguage(Locale.US);
+                        if (status == TextToSpeech.SUCCESS) {
+                            int result = tts.setLanguage(Locale.US);
+                            if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED) {
+                                Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
@@ -202,18 +205,20 @@ public class Route extends AppCompatActivity {
                 //Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
                 //beaconManager.startRanging(region);
 
+                String sayText = "Found ";
+
                 if(val.equals(st.getMajor()) && count == 0){
                     Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
-                    tts.speak("Found Blueberry",TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
                 }
                 if(val.equals(ch.getMajor()) && count == 1){
                     Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
-                    tts.speak("Found Mint",TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak(sayText + "Mint",TextToSpeech.QUEUE_FLUSH, null);
                 }
                 if(val.equals(f.getMajor()) && count == 2){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
-                    tts.speak("Found Ice",TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak(sayText + "Ice",TextToSpeech.QUEUE_FLUSH, null);
                 }
 
             }
