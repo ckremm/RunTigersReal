@@ -80,7 +80,6 @@ public class Route extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
         es = new ArrayList<>();
-
         region = new Region("ranged region",
                 UUID.fromString("b9407f30-f5f8-466e-aff9-25556b57fe6d"), null, null);
 
@@ -92,6 +91,7 @@ public class Route extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int c = 0;
                 Button b = (Button) v;
                 if (b.getText().equals("stop")) {
                     timerHandler.removeCallbacks(timerRunnable);
@@ -100,7 +100,10 @@ public class Route extends AppCompatActivity {
                     startTime = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
                     b.setText("stop");
-                    monitor();
+                    while(c < 3){
+                        monitor(c);
+                        c++;
+                    }
                 }
             }
         });
@@ -153,7 +156,7 @@ public class Route extends AppCompatActivity {
         b.setText("start");
     }
 
-    public void monitor(){
+    public void monitor(int c){
 
         //Toast.makeText(this, "Inside monitor", Toast.LENGTH_LONG).show();
         beaconManager = new BeaconManager(getApplicationContext());
@@ -167,8 +170,6 @@ public class Route extends AppCompatActivity {
         });
 
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
-
-            int count = 0;
 
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
@@ -200,22 +201,18 @@ public class Route extends AppCompatActivity {
                     }
                 }
 
-                //Toast.makeText(Route.this, val, Toast.LENGTH_LONG).show();
-                //Toast.makeText(Route.this, "Break", Toast.LENGTH_LONG).show();
-                //Toast.makeText(Route.this, start, Toast.LENGTH_LONG).show();
-                //beaconManager.startRanging(region);
 
                 String sayText = "Found ";
 
-                if(val.equals(st.getMajor()) && count == 0){
+                if(val.equals(st.getMajor())){
                     Toast.makeText(Route.this, "Found Blueberry", Toast.LENGTH_LONG).show();
                     tts.speak(sayText + "Blueberry",TextToSpeech.QUEUE_FLUSH, null);
                 }
-                if(val.equals(ch.getMajor()) && count == 1){
+                else if(val.equals(ch.getMajor())){
                     Toast.makeText(Route.this, "Found Mint", Toast.LENGTH_LONG).show();
                     tts.speak(sayText + "Mint",TextToSpeech.QUEUE_FLUSH, null);
                 }
-                if(val.equals(f.getMajor()) && count == 2){
+                else if(val.equals(f.getMajor())){
                     Toast.makeText(Route.this, "Found Ice" +
                             "", Toast.LENGTH_LONG).show();
                     tts.speak(sayText + "Ice",TextToSpeech.QUEUE_FLUSH, null);
@@ -226,7 +223,6 @@ public class Route extends AppCompatActivity {
             @Override
             public void onExitedRegion(Region region) {
                 //Toast.makeText(Route.this, "here again", Toast.LENGTH_LONG).show();
-                count++;
             }
         });
 
