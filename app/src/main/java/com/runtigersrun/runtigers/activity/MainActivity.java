@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     String jdata;
     JSONObject jobj;
     JSONArray jarray;
-    ArrayList<User> users;
+    public static ArrayList<User> users;
     String un;
     String pa;
     public static User currentUser;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 LName = jo.getString("LastName");
                 Username = jo.getString("Username");
                 Pass = jo.getString("Password");
-                User u = new User(FName, LName, Username, Pass);
+                User u = new User(FName, LName, Username, Pass, ID);
 
                 users.add(u);
                 c++;

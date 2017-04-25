@@ -9,13 +9,30 @@ import static android.app.PendingIntent.getActivity;
 
 public class User {
 
-    private String fname, lname, uname, pass;
+    private String fname, lname, uname, pass, userID;
 
-    public User(String fname, String lname, String uname, String pass){
-        this.setName(fname);
-        this.setStart(lname);
+    public User(String fname, String lname, String uname, String pass, String userID){
+        this.setFname(fname);
+        this.setLname(lname);
         this.setUname(uname);
         this.setPass(pass);
+        this.setUserID(userID);
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getFname() {
@@ -32,14 +49,6 @@ public class User {
 
     public String getPass() {
         return pass;
-    }
-
-    public void setName(String name) {
-        this.fname = name;
-    }
-
-    public void setStart(String name) {
-        this.lname = name;
     }
 
     public void setUname(String uname) {
