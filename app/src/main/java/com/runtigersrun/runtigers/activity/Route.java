@@ -56,7 +56,7 @@ public class Route extends AppCompatActivity {
     Region region;
     TextToSpeech tts;
     Beacon nearestBeacon;
-    int prevBeacon = -1;
+    String prevBeacon = "Empty";
 
     boolean isRunning = false;
 
@@ -180,7 +180,7 @@ public class Route extends AppCompatActivity {
 
                 }
             });
-            do{
+            //do{
             beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
                 @Override
                 public void onEnteredRegion(Region region, List<Beacon> list) {
@@ -279,7 +279,7 @@ public class Route extends AppCompatActivity {
                     });
                 }
             });
-        }while (isRunning);
+        //}while (isRunning);
 
 
 
@@ -313,12 +313,15 @@ public class Route extends AppCompatActivity {
                             @Override
                             public void onInit(int status) {
                                 if (status == TextToSpeech.SUCCESS) {
-                                    int result = tts.setLanguage(Locale.US);
-                                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                                        Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
-                                    }
-                                    tts.speak("Found Blueberry", TextToSpeech.QUEUE_FLUSH, null);
+                                    if(prevBeacon.equals(st.getMajor())){
 
+                                    }else {
+                                        int result = tts.setLanguage(Locale.US);
+                                        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                                            Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_LONG).show();
+                                        }
+                                        tts.speak("Found Blueberry", TextToSpeech.QUEUE_FLUSH, null);
+                                    }
                                 }
                             }
                         });
