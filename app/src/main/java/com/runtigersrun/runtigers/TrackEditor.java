@@ -27,6 +27,9 @@ public class TrackEditor extends AppCompatActivity {
     RouteAdapter ra;
     ListView lv;
     ArrayList<Estimote> es;
+    Spinner first;
+    Spinner second;
+    Spinner last;
 
     //
     @Override
@@ -61,22 +64,31 @@ public class TrackEditor extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Spinner first = (Spinner) findViewById(R.id.fisrtWaypoint);
-        Spinner second = (Spinner) findViewById(R.id.secondWaypoint);
-        Spinner last = (Spinner) findViewById(R.id.lastWaypoint);
+        first = (Spinner) findViewById(R.id.fisrtWaypoint);
+        second = (Spinner) findViewById(R.id.secondWaypoint);
+        last = (Spinner) findViewById(R.id.lastWaypoint);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         first.setAdapter(spinnerArrayAdapter);
         second.setAdapter(spinnerArrayAdapter);
         last.setAdapter(spinnerArrayAdapter);
 
+
         Button finished = (Button) findViewById(R.id.buttonTrackFinish);
 
         finished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pushTrack();
                 onBackPressed();
             }
         });
+    }
+
+    public void pushTrack(){
+        String text = first.getSelectedItem().toString();
+        String text2 = second.getSelectedItem().toString();
+        String text3 = last.getSelectedItem().toString();
+
     }
 }
