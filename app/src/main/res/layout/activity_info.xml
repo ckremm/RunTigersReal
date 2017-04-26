@@ -13,10 +13,57 @@
         android:id="@+id/imageView9" />
 
     <TextView
-        android:text="This is where all of the info will go."
+        android:text="Authors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView9"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/authorText"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <TextView
+        android:text="Douglas Edward Stieby Jr.\nChristopher J Kremm\nAaron Joseph Oandansan Villanueva\n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/authorText"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/authorBody"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="Information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/infoText"
-        android:layout_below="@+id/imageView9"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_below="@+id/authorBody"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Our app will allow the Clemson students to track their running times in and around campus. The user will also be able to view top running times around campus. Users compete against one another to get the top time on a course. The app will use Bluetooth to communicate with Estimote beacons, a Bluetooth receiver that sends out a signal when your device is close to it. The app will also give audio cues on when the user is close to a beacon.\n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/infoText"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/infoBody"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="Acknowledgements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ackText"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_below="@+id/infoBody"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Sydney Paul\nRob Percival’s videos on Android App Development\nStackOverflow\nTutorialPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ackText"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/ackBody"
+        android:textAlignment="center" />
+
 </RelativeLayout>
