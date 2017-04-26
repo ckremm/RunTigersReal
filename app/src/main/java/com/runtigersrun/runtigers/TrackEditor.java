@@ -1,14 +1,19 @@
 package com.runtigersrun.runtigers;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.runtigersrun.runtigers.activity.MainActivity;
+import com.runtigersrun.runtigers.activity.Route;
 import com.runtigersrun.runtigers.control.RouteAdapter;
 import com.runtigersrun.runtigers.model.Estimote;
 
@@ -16,6 +21,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class TrackEditor extends AppCompatActivity {
@@ -90,5 +104,72 @@ public class TrackEditor extends AppCompatActivity {
         String text2 = second.getSelectedItem().toString();
         String text3 = last.getSelectedItem().toString();
 
+        EditText TrackName = (EditText)findViewById(R.id.trackNameInput);
+        String tn = TrackName.getText().toString();
+
+
+        BackgroundAddTrack addTrack = new BackgroundAddTrack();
+        addTrack.execute(tn,text, text2, text3);
+        finish();
     }
+
+    public class BackgroundAddTrack extends AsyncTask<String,Void, String> {
+
+        String add_time_url;
+        @Override
+        protected void onPreExecute() {
+            add_time_url = "https://people.cs.clemson.edu/~dstieby/cpsc4820/RTR/externaldb/inputTrack.php";
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            String TrackName, StartEstimote, CheckpointEstimote, FinishEstimote;
+            TrackName=args[0];
+            StartEstimote=args[1];
+            CheckpointEstimote=args[2];
+            FinishEstimote=args[3];
+            try{
+                URL url = new URL(add_time_url);
+                HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                huc.setRequestMethod("POST");
+                huc.setDoOutput(true);
+                OutputStream os = huc.getOutputStream();
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                String data_string = URLEncoder.encode("TrackName","UTF-8")+"="+URLEncoder.encode(TrackName,"UTF-8") + "&" +
+                        URLEncoder.encode("StartEstimote","UTF-8")+"="+URLEncoder.encode(StartEstimote,"UTF-8") + "&" +
+                        URLEncoder.encode("CheckpointEstimote","UTF-8")+"="+URLEncoder.encode(CheckpointEstimote,"UTF-8") + "&" +
+                        URLEncoder.encode("FinishEstimote","UTF-8")+"="+URLEncoder.encode(FinishEstimote,"UTF-8");
+
+                bw.write(data_string);
+                bw.flush();
+                bw.close();
+                os.close();
+                InputStream is = huc.getInputStream();
+                is.close();
+                huc.disconnect();
+                return "Track Added";
+            }
+            catch(MalformedURLException e){
+                e.printStackTrace();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
 }
