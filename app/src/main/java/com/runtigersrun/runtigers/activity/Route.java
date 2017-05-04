@@ -57,6 +57,7 @@ public class Route extends AppCompatActivity {
     String chp;
     String fin;
     String id;
+    String TrackName;
     Estimote e1;
     Estimote e2;
     Estimote e3;
@@ -112,6 +113,7 @@ public class Route extends AppCompatActivity {
         // keep screen on
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        TextView titleTV = (TextView) findViewById(R.id.titleTextView);
 
         // Timer
         timerTextView = (TextView) findViewById(R.id.timerTextView);
@@ -144,6 +146,9 @@ public class Route extends AppCompatActivity {
         start = getIntent().getExtras().getString("Start");
         chp = getIntent().getExtras().getString("Checkpoint");
         fin = getIntent().getExtras().getString("Finish");
+        TrackName=getIntent().getExtras().getString("TrackName");
+
+        titleTV.setText(TrackName);
 
 
         try {

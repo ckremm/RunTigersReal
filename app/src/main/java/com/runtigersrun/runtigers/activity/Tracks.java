@@ -110,6 +110,7 @@ public class Tracks extends AppCompatActivity {
                             trackIntent.putExtra("Checkpoint", t.getCheckpoint());
                             trackIntent.putExtra("Finish", t.getFinish());
                             trackIntent.putExtra("Json_data", j_string);
+                            trackIntent.putExtra("TrackName", t.getName());
                             Tracks.this.startActivity((trackIntent));
                         }
                         else if (which == 1){
